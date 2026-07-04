@@ -1,14 +1,24 @@
-const nav = document.querySelector("#side-nav");
-const search = document.querySelector("#search");
-const searchClear = document.querySelector("#search-clear");
-const searchNav = document.querySelector("#search-nav");
-const searchCount = document.querySelector("#search-count");
-const searchPrev = document.querySelector("#search-prev");
-const searchNext = document.querySelector("#search-next");
+const dom = {
+  nav: document.querySelector("#side-nav"),
+  search: document.querySelector("#search"),
+  searchClear: document.querySelector("#search-clear"),
+  searchNav: document.querySelector("#search-nav"),
+  searchCount: document.querySelector("#search-count"),
+  searchPrev: document.querySelector("#search-prev"),
+  searchNext: document.querySelector("#search-next"),
+  header: document.querySelector(".site-header"),
+};
+
+const SECTION_SELECTOR = ".section-card";
+const DISCLOSURE_SELECTOR = ".question-item, .practice-item";
+const SEARCH_DEBOUNCE_MS = 500;
 
 const sectionLinks = new Map();
 const searchTargets = [];
 const searchableTextElements = [];
+const codeBlocks = [];
+const disclosureItems = [];
+const sectionCards = [];
 let searchDebounceTimer = null;
 let pendingActiveSectionId = null;
 
@@ -16,6 +26,7 @@ const searchState = {
   query: "",
   matches: [],
   index: 0,
+  currentHit: null,
 };
 
 function escapeRegExp(value) {
@@ -223,9 +234,41 @@ function renderHighlightedCode(codeText, language, query = "") {
   return language === "html" ? highlightHtml(codeText, terms) : highlightJs(codeText, terms);
 }
 
+function getHeaderBottom() {
+  return dom.header ? Math.ceil(dom.header.getBoundingClientRect().bottom) : 0;
+}
+
+function getScrollTopForElement(element) {
+  if (!element) return window.scrollY;
+
+  const anchor =
+    element.classList?.contains("search-hit")
+      ? element
+      : element.querySelector?.(".search-hit") ||
+        element.querySelector(".section-title") ||
+        element.querySelector(".question-item__title") ||
+        element.querySelector(".practice-item__title") ||
+        element;
+
+  return anchor.getBoundingClientRect().top + window.scrollY - getHeaderBottom();
+}
+
+function setToggleExpanded(container, selector, expanded) {
+  const toggle = container?.querySelector(selector);
+  if (toggle) toggle.setAttribute("aria-expanded", String(expanded));
+}
+
+function setDisclosureOpen(container, selector, open) {
+  if (!container) return;
+
+  container.classList.toggle("is-open", open);
+  setToggleExpanded(container, selector, open);
+}
+
 function collectSearchTargets() {
   searchTargets.length = 0;
   searchableTextElements.length = 0;
+  codeBlocks.length = 0;
 
   document.querySelectorAll("[data-base-text]").forEach((element) => {
     if (element.closest(".answer-panel")) return;
@@ -239,11 +282,22 @@ function collectSearchTargets() {
   });
 
   document.querySelectorAll("code[data-raw]").forEach((code) => {
+    codeBlocks.push(code);
     searchTargets.push({
       element: code,
       searchText: code.dataset.raw ?? "",
       container: code.closest(".question-item, .practice-item") ?? code,
     });
+  });
+
+  disclosureItems.length = 0;
+  document.querySelectorAll(DISCLOSURE_SELECTOR).forEach((item) => {
+    disclosureItems.push(item);
+  });
+
+  sectionCards.length = 0;
+  document.querySelectorAll(SECTION_SELECTOR).forEach((section) => {
+    sectionCards.push(section);
   });
 }
 
@@ -268,7 +322,7 @@ function highlightSearchableText(query) {
 
 function updateCodeSearchHighlights(query) {
   const terms = getSearchTerms(query);
-  document.querySelectorAll("code[data-raw]").forEach((code) => {
+  codeBlocks.forEach((code) => {
     const raw = code.dataset.raw ?? "";
     const language = code.dataset.language ?? guessLanguage(raw);
     code.innerHTML = language === "html" ? highlightHtml(raw, terms) : highlightJs(raw, terms);
@@ -280,15 +334,15 @@ function clearSearchResultState() {
     element.classList.remove("is-search-match", "is-current-search-match", "is-search-open");
   });
 
-  document.querySelectorAll(".is-current-search-hit").forEach((element) => {
-    element.classList.remove("is-current-search-hit");
-  });
+  searchState.currentHit?.classList.remove("is-current-search-hit");
+  searchState.currentHit = null;
 }
 
 function setCurrentSearchHit(hitElement) {
-  document.querySelectorAll(".is-current-search-hit").forEach((element) => {
-    element.classList.remove("is-current-search-hit");
-  });
+  if (searchState.currentHit === hitElement) return;
+
+  searchState.currentHit?.classList.remove("is-current-search-hit");
+  searchState.currentHit = hitElement ?? null;
 
   if (hitElement) {
     hitElement.classList.add("is-current-search-hit");
@@ -296,46 +350,34 @@ function setCurrentSearchHit(hitElement) {
 }
 
 function setSearchControlsEnabled(visible) {
-  if (searchClear) searchClear.style.display = visible ? "inline-flex" : "none";
-  if (searchNav) searchNav.classList.toggle("is-visible", visible);
+  if (dom.searchClear) dom.searchClear.style.display = visible ? "inline-flex" : "none";
+  if (dom.searchNav) dom.searchNav.classList.toggle("is-visible", visible);
 }
 
 function updateSearchNavigationButtons() {
   const hasQuery = Boolean(searchState.query);
   const total = searchState.matches.length;
 
-  if (searchPrev) searchPrev.disabled = !hasQuery || !total;
-  if (searchNext) searchNext.disabled = !hasQuery || !total;
+  if (dom.searchPrev) dom.searchPrev.disabled = !hasQuery || !total;
+  if (dom.searchNext) dom.searchNext.disabled = !hasQuery || !total;
 }
 
 function updateSearchCounter() {
-  if (!searchCount) return;
+  if (!dom.searchCount) return;
 
   if (!searchState.query) {
-    searchCount.textContent = "0 из 0";
+    dom.searchCount.textContent = "0 из 0";
     return;
   }
 
   const total = searchState.matches.length;
-  searchCount.textContent = total ? `${searchState.index + 1} из ${total}` : "0 из 0";
+  dom.searchCount.textContent = total ? `${searchState.index + 1} из ${total}` : "0 из 0";
 }
 
 function scrollToElement(element) {
   if (!element) return;
 
-  const anchor =
-    element.classList?.contains("search-hit")
-      ? element
-      : element.querySelector?.(".search-hit") ||
-        element.querySelector(".section-title") ||
-        element.querySelector(".question-item__title") ||
-        element.querySelector(".practice-item__title") ||
-        element;
-
-  const header = document.querySelector(".site-header");
-  const headerBottom = header ? Math.ceil(header.getBoundingClientRect().bottom) : 0;
-  const top = anchor.getBoundingClientRect().top + window.scrollY - headerBottom + 1;
-
+  const top = getScrollTopForElement(element);
   window.scrollTo({ top, behavior: "smooth" });
 }
 
@@ -375,7 +417,7 @@ function goToSearchMatch(direction) {
   focusSearchMatch(nextIndex, { scroll: true });
 }
 
-function scheduleSearch(query, delay = 500) {
+function scheduleSearch(query, delay = SEARCH_DEBOUNCE_MS) {
   window.clearTimeout(searchDebounceTimer);
   searchDebounceTimer = window.setTimeout(() => {
     applySearch(query);
@@ -399,28 +441,40 @@ function applySearch(query) {
     : [];
 
   const matchingTargets = getSearchMatches(normalized);
+  const matchingContainers = new Set(
+    matchingTargets.map(({ container }) => container).filter(Boolean),
+  );
 
   searchTargets.forEach(({ element, searchText }) => {
     const isMatch = Boolean(normalized) && matchesSearch(searchText ?? "", normalized);
     element.classList.toggle("is-search-match", isMatch);
   });
 
-  document.querySelectorAll(".question-item, .practice-item").forEach((container) => {
-    const shouldOpen = matchingTargets.some(({ container: matchedContainer }) => matchedContainer === container);
+  disclosureItems.forEach((container) => {
+    const shouldOpen = matchingContainers.has(container);
     container.classList.toggle("is-search-open", shouldOpen);
 
-    const toggle = container.querySelector(".question-item__toggle, .practice-item__toggle");
     if (shouldOpen) {
-      container.classList.add("is-open");
       container.dataset.searchAutoOpen = "true";
-      if (toggle) toggle.setAttribute("aria-expanded", "true");
+      setDisclosureOpen(
+        container,
+        container.classList.contains("question-item")
+          ? ".question-item__toggle"
+          : ".practice-item__toggle",
+        true,
+      );
       return;
     }
 
     if (container.dataset.searchAutoOpen === "true") {
-      container.classList.remove("is-open");
-      if (toggle) toggle.setAttribute("aria-expanded", "false");
       delete container.dataset.searchAutoOpen;
+      setDisclosureOpen(
+        container,
+        container.classList.contains("question-item")
+          ? ".question-item__toggle"
+          : ".practice-item__toggle",
+        false,
+      );
     }
   });
 
@@ -436,7 +490,7 @@ function applySearch(query) {
 
 function collectSectionLinks() {
   sectionLinks.clear();
-  nav?.querySelectorAll("a[data-section-id]").forEach((link) => {
+  dom.nav?.querySelectorAll("a[data-section-id]").forEach((link) => {
     sectionLinks.set(link.dataset.sectionId, link);
   });
 }
@@ -453,21 +507,15 @@ function scrollToSection(sectionId) {
   const target = document.getElementById(sectionId);
   if (!target) return;
 
-  const header = document.querySelector(".site-header");
-  const headerBottom = header ? header.getBoundingClientRect().bottom : 0;
-  const targetTop = target.getBoundingClientRect().top + window.scrollY;
-  const top = targetTop - headerBottom;
+  const top = target.getBoundingClientRect().top + window.scrollY - getHeaderBottom();
 
   window.scrollTo({ top, behavior: "smooth" });
   history.pushState(null, "", `#${sectionId}`);
 }
 
 function updateActiveSection() {
-  const headerOffset = 92;
-  const visibleSections = [
-    ...document.querySelectorAll(".section-card"),
-    document.getElementById("practice"),
-  ]
+  const headerOffset = getHeaderBottom();
+  const visibleSections = sectionCards
     .filter((element) => element && !element.classList.contains("is-hidden"))
     .map((element) => ({
       id: element.id,
@@ -584,22 +632,22 @@ function initQuestionToggles() {
     const toggle = event.target.closest(".question-item__toggle");
     if (toggle) {
       const item = toggle.closest(".question-item");
-      const isOpen = item.classList.toggle("is-open");
-      toggle.setAttribute("aria-expanded", String(isOpen));
+      const isOpen = !item.classList.contains("is-open");
+      setDisclosureOpen(item, ".question-item__toggle", isOpen);
       return;
     }
 
     const practiceToggle = event.target.closest(".practice-item__toggle");
     if (practiceToggle) {
       const item = practiceToggle.closest(".practice-item");
-      const isOpen = item.classList.toggle("is-open");
-      practiceToggle.setAttribute("aria-expanded", String(isOpen));
+      const isOpen = !item.classList.contains("is-open");
+      setDisclosureOpen(item, ".practice-item__toggle", isOpen);
     }
   });
 }
 
 function initNavigation() {
-  nav?.addEventListener("click", (event) => {
+  dom.nav?.addEventListener("click", (event) => {
     const link = event.target.closest("a[data-section-id]");
     if (!link) return;
 
@@ -611,11 +659,11 @@ function initNavigation() {
 }
 
 function initSearch() {
-  search?.addEventListener("input", (event) => {
-    scheduleSearch(event.target.value);
+  dom.search?.addEventListener("input", (event) => {
+    scheduleSearch(event.target.value, SEARCH_DEBOUNCE_MS);
   });
 
-  search?.addEventListener("keydown", (event) => {
+  dom.search?.addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
       event.preventDefault();
       window.clearTimeout(searchDebounceTimer);
@@ -624,18 +672,18 @@ function initSearch() {
     }
   });
 
-  searchClear?.addEventListener("click", () => {
+  dom.searchClear?.addEventListener("click", () => {
     window.clearTimeout(searchDebounceTimer);
-    search.value = "";
+    dom.search.value = "";
     applySearch("");
-    search.focus();
+    dom.search.focus();
   });
 
-  searchPrev?.addEventListener("click", () => {
+  dom.searchPrev?.addEventListener("click", () => {
     goToSearchMatch(-1);
   });
 
-  searchNext?.addEventListener("click", () => {
+  dom.searchNext?.addEventListener("click", () => {
     goToSearchMatch(1);
   });
 }
@@ -660,7 +708,7 @@ function init() {
     element.dataset.baseText = element.dataset.baseText ?? element.textContent ?? "";
   });
 
-  document.querySelectorAll("code[data-raw]").forEach((code) => {
+  codeBlocks.forEach((code) => {
     const raw = code.dataset.raw ?? "";
     const language = code.dataset.language ?? guessLanguage(raw);
     code.innerHTML = renderHighlightedCode(raw, language);
