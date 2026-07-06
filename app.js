@@ -22,6 +22,9 @@ const sectionCards = [];
 let searchDebounceTimer = null;
 let pendingActiveSectionId = null;
 
+const THIS_SECTION_TERMS_PATTERN =
+  /(^|[^A-Za-z0-9_$])(Constructor\.prototype|User\.prototype|new User\(\)|obj\.show\(\)|this\.value|this|call|apply|bind|new|undefined|prototype|instanceof|obj|fn|show|User)(?=$|[^A-Za-z0-9_$])/gi;
+
 const searchState = {
   query: "",
   matches: [],
@@ -74,6 +77,39 @@ function highlightSearchTerms(text, terms) {
   );
 
   return text.replace(pattern, '<mark class="search-hit">$1</mark>');
+}
+
+function isThisSectionInlineText(element) {
+  return Boolean(
+    element.closest("#this") &&
+      element.matches(".question-item__title, .question-note, .question-list li"),
+  );
+}
+
+function highlightThisSectionTerms(text) {
+  return escapeHtml(text).replace(
+    THIS_SECTION_TERMS_PATTERN,
+    '$1<code class="question-term">$2</code>',
+  );
+}
+
+function decorateThisSectionTerms() {
+  searchableTextElements.forEach((element) => {
+    if (!isThisSectionInlineText(element)) return;
+
+    element.innerHTML = highlightThisSectionTerms(element.dataset.baseText ?? "");
+  });
+}
+
+function decorateThisSectionAnswerHeadings() {
+  document
+    .querySelectorAll("#this .answer-panel__heading, #this .answer-panel__subheading")
+    .forEach((element) => {
+      const baseText = element.dataset.baseText ?? element.textContent ?? "";
+
+      element.dataset.baseText = baseText;
+      element.innerHTML = highlightThisSectionTerms(baseText);
+    });
 }
 
 function styleJsToken(token, terms = []) {
@@ -307,6 +343,8 @@ function restoreSearchableText() {
   searchableTextElements.forEach((element) => {
     element.textContent = element.dataset.baseText ?? "";
   });
+
+  decorateThisSectionTerms();
 }
 
 function highlightSearchableText(query) {
@@ -721,6 +759,7 @@ function init() {
   initQuestionToggles();
   initNavigation();
   initSearch();
+  decorateThisSectionAnswerHeadings();
 
   applySearch("");
   updateActiveSection();

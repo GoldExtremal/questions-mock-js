@@ -465,6 +465,18 @@ a {
   line-height: 1.5;
 }
 
+.question-term {
+  display: inline;
+  padding: 0.08em 0.34em;
+  border-radius: 0.36em;
+  background: rgba(10, 11, 14, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #f5d58a;
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  white-space: nowrap;
+}
+
 .question-item__chevron {
   width: 10px;
   height: 10px;
