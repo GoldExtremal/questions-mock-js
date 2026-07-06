@@ -282,6 +282,8 @@ function collectSearchTargets() {
   });
 
   document.querySelectorAll("code[data-raw]").forEach((code) => {
+    if (code.closest(".answer-panel")) return;
+
     codeBlocks.push(code);
     searchTargets.push({
       element: code,
