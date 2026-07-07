@@ -22,8 +22,104 @@ const sectionCards = [];
 let searchDebounceTimer = null;
 let pendingActiveSectionId = null;
 
-const THIS_SECTION_TERMS_PATTERN =
-  /(^|[^A-Za-z0-9_$])(Constructor\.prototype|User\.prototype|new User\(\)|obj\.show\(\)|this\.value|this|call|apply|bind|new|undefined|prototype|instanceof|obj|fn|show|User)(?=$|[^A-Za-z0-9_$])/gi;
+const TERM_HIGHLIGHT_SECTIONS = [
+  {
+    selector: "#this",
+    terms: [
+      "Constructor.prototype",
+      "User.prototype",
+      "new User()",
+      "obj.show()",
+      "this.value",
+      "this",
+      "call",
+      "apply",
+      "bind",
+      "new",
+      "undefined",
+      "prototype",
+      "instanceof",
+      "obj",
+      "fn",
+      "show",
+      "User",
+    ],
+  },
+  {
+    selector: "#async",
+    terms: [
+      "async / await",
+      "microtasks",
+      "macrotasks",
+      "Event Loop",
+      "Call Stack",
+      "Promise.all",
+      "Promise.then",
+      "Promise",
+      "setTimeout",
+      "async",
+      "await",
+      "finally",
+      "resolve",
+      "reject",
+      "pending",
+      "fulfilled",
+      "rejected",
+    ],
+  },
+  {
+    selector: "#prototype",
+    terms: [
+      "Object.getPrototypeOf()",
+      "Object.create()",
+      "Constructor.prototype",
+      "User.prototype",
+      "Object.prototype",
+      "[[Prototype]]",
+      "__proto__",
+      "prototype",
+      "instanceof",
+      "class",
+      "extends",
+      "new",
+      "null",
+    ],
+  },
+  {
+    selector: "#dom",
+    terms: [
+      "MutationObserver",
+      "MutationRecord",
+      "Reflow / Repaint",
+      "Event Bubbling",
+      "Capturing",
+      "DOM",
+      "DOM API",
+      "querySelector",
+      "addEventListener",
+      "event.target",
+      "closest()",
+      "stopPropagation()",
+      "offsetHeight",
+      "requestAnimationFrame",
+      "reflow",
+      "repaint",
+      "layout",
+    ],
+  },
+];
+
+const TERM_HIGHLIGHT_CONFIGS = TERM_HIGHLIGHT_SECTIONS.map(({ selector, terms }) => ({
+  selector,
+  pattern: new RegExp(
+    `(^|[^A-Za-z0-9_$])(${terms
+      .slice()
+      .sort((a, b) => b.length - a.length)
+      .map(escapeRegExp)
+      .join("|")})(?=$|[^A-Za-z0-9_$])`,
+    "gi",
+  ),
+}));
 
 const searchState = {
   query: "",
@@ -79,37 +175,41 @@ function highlightSearchTerms(text, terms) {
   return text.replace(pattern, '<mark class="search-hit">$1</mark>');
 }
 
-function isThisSectionInlineText(element) {
+function getTermHighlightConfig(element) {
+  return TERM_HIGHLIGHT_CONFIGS.find(({ selector }) => element.closest(selector));
+}
+
+function isTermHighlightInlineText(element) {
   return Boolean(
-    element.closest("#this") &&
+    getTermHighlightConfig(element) &&
       element.matches(".question-item__title, .question-note, .question-list li"),
   );
 }
 
-function highlightThisSectionTerms(text) {
-  return escapeHtml(text).replace(
-    THIS_SECTION_TERMS_PATTERN,
-    '$1<code class="question-term">$2</code>',
-  );
+function highlightSectionTerms(text, pattern) {
+  return escapeHtml(text).replace(pattern, '$1<code class="question-term">$2</code>');
 }
 
-function decorateThisSectionTerms() {
+function decorateSectionTerms() {
   searchableTextElements.forEach((element) => {
-    if (!isThisSectionInlineText(element)) return;
+    if (!isTermHighlightInlineText(element)) return;
 
-    element.innerHTML = highlightThisSectionTerms(element.dataset.baseText ?? "");
+    const config = getTermHighlightConfig(element);
+    if (!config) return;
+
+    element.innerHTML = highlightSectionTerms(element.dataset.baseText ?? "", config.pattern);
   });
 }
 
-function decorateThisSectionAnswerHeadings() {
-  document
-    .querySelectorAll("#this .answer-panel__heading, #this .answer-panel__subheading")
-    .forEach((element) => {
+function decorateSectionAnswerHeadings() {
+  TERM_HIGHLIGHT_CONFIGS.forEach(({ selector, pattern }) => {
+    document.querySelectorAll(`${selector} .answer-panel__heading, ${selector} .answer-panel__subheading`).forEach((element) => {
       const baseText = element.dataset.baseText ?? element.textContent ?? "";
 
       element.dataset.baseText = baseText;
-      element.innerHTML = highlightThisSectionTerms(baseText);
+      element.innerHTML = highlightSectionTerms(baseText, pattern);
     });
+  });
 }
 
 function styleJsToken(token, terms = []) {
@@ -344,7 +444,7 @@ function restoreSearchableText() {
     element.textContent = element.dataset.baseText ?? "";
   });
 
-  decorateThisSectionTerms();
+  decorateSectionTerms();
 }
 
 function highlightSearchableText(query) {
@@ -667,6 +767,24 @@ function initAnswerButtons() {
   });
 }
 
+function closeAnswersInside(container) {
+  container?.querySelectorAll(".answer-section.is-open").forEach((section) => {
+    const panel = section.querySelector(".answer-panel");
+    const toggle = section.querySelector(".answer-toggle");
+
+    if (toggle) {
+      toggle.hidden = false;
+      toggle.setAttribute("aria-expanded", "false");
+    }
+
+    if (panel) {
+      panel.hidden = true;
+    }
+
+    section.classList.remove("is-open");
+  });
+}
+
 function initQuestionToggles() {
   document.addEventListener("click", (event) => {
     const toggle = event.target.closest(".question-item__toggle");
@@ -674,6 +792,11 @@ function initQuestionToggles() {
       const item = toggle.closest(".question-item");
       const isOpen = !item.classList.contains("is-open");
       setDisclosureOpen(item, ".question-item__toggle", isOpen);
+
+      if (!isOpen) {
+        closeAnswersInside(item);
+      }
+
       return;
     }
 
@@ -682,6 +805,10 @@ function initQuestionToggles() {
       const item = practiceToggle.closest(".practice-item");
       const isOpen = !item.classList.contains("is-open");
       setDisclosureOpen(item, ".practice-item__toggle", isOpen);
+
+      if (!isOpen) {
+        closeAnswersInside(item);
+      }
     }
   });
 }
@@ -748,7 +875,7 @@ function init() {
     element.dataset.baseText = element.dataset.baseText ?? element.textContent ?? "";
   });
 
-  codeBlocks.forEach((code) => {
+  document.querySelectorAll("code[data-raw]").forEach((code) => {
     const raw = code.dataset.raw ?? "";
     const language = code.dataset.language ?? guessLanguage(raw);
     code.innerHTML = renderHighlightedCode(raw, language);
@@ -759,7 +886,7 @@ function init() {
   initQuestionToggles();
   initNavigation();
   initSearch();
-  decorateThisSectionAnswerHeadings();
+  decorateSectionAnswerHeadings();
 
   applySearch("");
   updateActiveSection();
