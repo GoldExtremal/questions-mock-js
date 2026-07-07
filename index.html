@@ -237,167 +237,308 @@ console.log(user instanceof User);" data-language="js">function User(name) {
 
 const user = new User(&quot;Ada&quot;);
 
-console.log(user instanceof User);</code></pre></div><ul class="question-list"><li data-base-text="Какие шаги выполняет new?">Какие шаги выполняет new?</li><li data-base-text="Почему после этого работает instanceof?">Почему после этого работает instanceof?</li><li data-base-text="Как prototype участвует в создании объекта?">Как prototype участвует в создании объекта?</li></ul><div class="answer-section"><div class="answer-panel" hidden=""><button type="button" class="answer-panel__close" aria-label="Скрыть ответ">×</button><h4 class="answer-panel__heading">10. Как работает new?</h4><p><code>new</code> запускает функцию-конструктор в специальном режиме создания объекта. Он подготавливает новый объект, связывает его с прототипом конструктора, вызывает конструктор с этим объектом в качестве <code>this</code> и возвращает результат.</p><h5 class="answer-panel__subheading">Какие шаги выполняет new?</h5><ul><li>Создаёт новый пустой объект.</li><li>Связывает внутренний прототип объекта с <code>Constructor.prototype</code>.</li><li>Вызывает конструктор так, что <code>this</code> внутри него указывает на новый объект.</li><li>Возвращает созданный объект, если конструктор явно не вернул другой объект.</li></ul><h5 class="answer-panel__subheading">Почему после этого работает instanceof?</h5><p><code>instanceof</code> проверяет, есть ли <code>User.prototype</code> в цепочке прототипов объекта. После вызова <code>new User()</code> эта связь появляется, поэтому <code>user instanceof User</code> возвращает <code>true</code>.</p><h5 class="answer-panel__subheading">Как prototype участвует в создании объекта?</h5><p><code>prototype</code> берётся у функции-конструктора. Новый объект получает ссылку на <code>User.prototype</code>, и благодаря этому может находить методы и свойства в цепочке прототипов.</p><p class="answer-panel__note">Важно: если конструктор явно возвращает объект, результатом <code>new</code> будет этот объект. Если возвращается примитив, он игнорируется.</p></div><button type="button" class="answer-toggle" aria-expanded="false">Ответ</button></div></div></article></div></section><section class="section-card" id="async"><div class="section-head"><div><h2 class="section-title" data-base-text="Асинхронность">Асинхронность</h2><p class="section-summary" data-base-text="Здесь собраны вопросы про event loop, microtasks, Promise и async / await. Обычно именно этот блок хорошо показывает глубину понимания языка и среды.">Здесь собраны вопросы про event loop, microtasks, Promise и async / await. Обычно именно этот блок хорошо показывает глубину понимания языка и среды.</p></div></div><div class="cards"><article class="question-item" data-kind="question"><button type="button" class="question-item__toggle" aria-expanded="false">
-        <span class="question-item__title" data-base-text="11. Что такое Event Loop?">11. Что такое Event Loop?</span>
+console.log(user instanceof User);</code></pre></div><ul class="question-list"><li data-base-text="Какие шаги выполняет new?">Какие шаги выполняет new?</li><li data-base-text="Почему после этого работает instanceof?">Почему после этого работает instanceof?</li><li data-base-text="Как prototype участвует в создании объекта?">Как prototype участвует в создании объекта?</li></ul><div class="answer-section"><div class="answer-panel" hidden=""><button type="button" class="answer-panel__close" aria-label="Скрыть ответ">×</button><h4 class="answer-panel__heading">10. Как работает new?</h4><p><code>new</code> запускает функцию-конструктор в специальном режиме создания объекта. Он подготавливает новый объект, связывает его с прототипом конструктора, вызывает конструктор с этим объектом в качестве <code>this</code> и возвращает результат.</p><h5 class="answer-panel__subheading">Какие шаги выполняет new?</h5><ul><li>Создаёт новый пустой объект.</li><li>Связывает внутренний прототип объекта с <code>Constructor.prototype</code>.</li><li>Вызывает конструктор так, что <code>this</code> внутри него указывает на новый объект.</li><li>Возвращает созданный объект, если конструктор явно не вернул другой объект.</li></ul><h5 class="answer-panel__subheading">Почему после этого работает instanceof?</h5><p><code>instanceof</code> проверяет, есть ли <code>User.prototype</code> в цепочке прототипов объекта. После вызова <code>new User()</code> эта связь появляется, поэтому <code>user instanceof User</code> возвращает <code>true</code>.</p><h5 class="answer-panel__subheading">Как prototype участвует в создании объекта?</h5><p><code>prototype</code> берётся у функции-конструктора. Новый объект получает ссылку на <code>User.prototype</code>, и благодаря этому может находить методы и свойства в цепочке прототипов.</p><p class="answer-panel__note">Важно: если конструктор явно возвращает объект, результатом <code>new</code> будет этот объект. Если возвращается примитив, он игнорируется.</p></div><button type="button" class="answer-toggle" aria-expanded="false">Ответ</button></div></div></article></div></section><section class="section-card" id="async"><div class="section-head"><div><h2 class="section-title" data-base-text="Асинхронность">Асинхронность</h2><p class="section-summary" data-base-text="Здесь собраны вопросы про event loop, очереди задач, Promise и async / await. Этот блок показывает, понимает ли кандидат порядок выполнения кода.">Здесь собраны вопросы про event loop, очереди задач, Promise и async / await. Этот блок показывает, понимает ли кандидат порядок выполнения кода.</p></div></div><div class="cards"><article class="question-item" data-kind="question"><button type="button" class="question-item__toggle" aria-expanded="false">
+        <span class="question-item__title" data-base-text="11. Что такое Event Loop и зачем он нужен?">11. Что такое Event Loop и зачем он нужен?</span>
         <span class="question-item__chevron" aria-hidden="true"></span>
-    </button><div class="question-item__body"><p class="question-note" data-base-text="Посмотрим, где заканчивается JavaScript и начинается браузер.">Посмотрим, где заканчивается JavaScript и начинается браузер.</p><ul class="question-list"><li data-base-text="Что относится к JavaScript?">Что относится к JavaScript?</li><li data-base-text="Что делает браузер?">Что делает браузер?</li><li data-base-text="Кто вообще запускает Event Loop?">Кто вообще запускает Event Loop?</li></ul><div class="answer-section"><div class="answer-panel" hidden=""><button type="button" class="answer-panel__close" aria-label="Скрыть ответ">×</button><h4 class="answer-panel__heading">11. Что такое Event Loop?</h4><p>Event Loop — это механизм среды выполнения, который управляет очередями задач и микрозадач. Сам JavaScript исполняет код в одном потоке, а среда решает, что поставить следующим.</p><p>Обычно сначала заканчивается текущий стек вызовов, затем выполняются microtasks, и только после этого браузер переходит к macrotasks вроде `setTimeout`.</p><div class="answer-panel__clarifications"><h5 class="answer-panel__subheading">Что относится к JavaScript?</h5><p>К JavaScript относится сам язык и выполнение кода в стеке вызовов; очереди задач уже предоставляются средой выполнения.</p><h5 class="answer-panel__subheading">Что делает браузер?</h5><p>Браузер управляет таймерами, событиями, очередями задач, отрисовкой и другими возможностями среды, которые выходят за рамки самого языка.</p><h5 class="answer-panel__subheading">Кто вообще запускает Event Loop?</h5><p>Его запускает среда выполнения, например браузер или Node.js, а не сам JavaScript-код.</p></div></div><button type="button" class="answer-toggle" aria-expanded="false">Ответ</button></div></div></article><article class="question-item" data-kind="question"><button type="button" class="question-item__toggle" aria-expanded="false">
+    </button><div class="question-item__body"><p class="question-note" data-base-text="Разберём, как среда выполнения решает, что запускать после текущего синхронного кода.">Разберём, как среда выполнения решает, что запускать после текущего синхронного кода.</p><ul class="question-list"><li data-base-text="Что выполняет сам JavaScript?">Что выполняет сам JavaScript?</li><li data-base-text="Что добавляет среда выполнения?">Что добавляет среда выполнения?</li><li data-base-text="В каком порядке выполняются Call Stack, microtasks и macrotasks?">В каком порядке выполняются Call Stack, microtasks и macrotasks?</li></ul><div class="answer-section"><div class="answer-panel" hidden=""><button type="button" class="answer-panel__close" aria-label="Скрыть ответ">×</button><h4 class="answer-panel__heading">11. Что такое Event Loop и зачем он нужен?</h4><p><code>Event Loop</code> — механизм среды, который решает, когда выполнять синхронный код, микрозадачи, задачи и отрисовку.</p><p>Пока занят <code>Call Stack</code>, новый код не запускается. Когда стек пуст, среда берёт следующую работу из очередей.</p><h5 class="answer-panel__subheading">Что выполняет сам JavaScript?</h5><p>Сам JavaScript выполняет код и управляет стеком вызовов. Таймеры, события, сетевые операции и петлю событий даёт среда.</p><h5 class="answer-panel__subheading">Что добавляет среда выполнения?</h5><p>Браузер или <code>Node.js</code> добавляют API, очереди задач и правила возврата колбэков в выполнение.</p><h5 class="answer-panel__subheading">В каком порядке выполняются Call Stack, microtasks и macrotasks?</h5><p>Сначала выполняется синхронный код. Затем очищаются <code>microtasks</code>, например <code>Promise.then</code>. Потом берётся следующая <code>macrotask</code>, например <code>setTimeout</code>.</p><p class="answer-panel__note">Важно: <code>Event Loop</code> — не часть синтаксиса языка, а механизм среды вокруг движка.</p></div><button type="button" class="answer-toggle" aria-expanded="false">Ответ</button></div></div></article><article class="question-item" data-kind="question"><button type="button" class="question-item__toggle" aria-expanded="false">
         <span class="question-item__title" data-base-text="12. Как работает Call Stack?">12. Как работает Call Stack?</span>
         <span class="question-item__chevron" aria-hidden="true"></span>
-    </button><div class="question-item__body"><p class="question-note" data-base-text="Разберём стек на простом примере с вложенными вызовами.">Разберём стек на простом примере с вложенными вызовами.</p><ul class="question-list"><li data-base-text="foo вызывает bar, bar вызывает baz.">foo вызывает bar, bar вызывает baz.</li><li data-base-text="Как меняется стек по шагам?">Как меняется стек по шагам?</li></ul><div class="code-shell"><button type="button" class="copy-btn" aria-label="Скопировать код">
+    </button><div class="question-item__body"><p class="question-note" data-base-text="Разберём стек вызовов на простом примере с вложенными функциями.">Разберём стек вызовов на простом примере с вложенными функциями.</p><div class="code-shell"><button type="button" class="copy-btn" aria-label="Скопировать код">
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
             <path d="M8 4.75A2.75 2.75 0 0 1 10.75 2h6.5A2.75 2.75 0 0 1 20 4.75v9.5A2.75 2.75 0 0 1 17.25 17h-6.5A2.75 2.75 0 0 1 8 14.25v-9.5Zm2.75-1.25a1.25 1.25 0 0 0-1.25 1.25v9.5c0 .69.56 1.25 1.25 1.25h6.5c.69 0 1.25-.56 1.25-1.25v-9.5c0-.69-.56-1.25-1.25-1.25h-6.5Z"></path>
             <path d="M6.75 6A2.75 2.75 0 0 0 4 8.75v8.5A2.75 2.75 0 0 0 6.75 20h8.5A2.75 2.75 0 0 0 18 17.25V16h-1.5v1.25c0 .69-.56 1.25-1.25 1.25h-8.5c-.69 0-1.25-.56-1.25-1.25v-8.5c0-.69.56-1.25 1.25-1.25H7V6h-.25Z"></path>
         </svg>
     </button><pre class="code-block"><code data-raw="function foo() {
-        function bar() {
-                function baz() {}
-
-                baz();
-        }
-
-        bar();
+    bar();
 }
 
-foo();" data-language="js"><span class="token-keyword">function</span> foo<span class="token-operator">(</span><span class="token-operator">)</span> <span class="token-operator">{</span>
-        <span class="token-keyword">function</span> bar<span class="token-operator">(</span><span class="token-operator">)</span> <span class="token-operator">{</span>
-                <span class="token-keyword">function</span> baz<span class="token-operator">(</span><span class="token-operator">)</span> <span class="token-operator">{</span><span class="token-operator">}</span>
+function bar() {
+    baz();
+}
 
-                baz<span class="token-operator">(</span><span class="token-operator">)</span><span class="token-operator">;</span>
-        <span class="token-operator">}</span>
+function baz() {
+    console.log(&quot;done&quot;);
+}
 
-        bar<span class="token-operator">(</span><span class="token-operator">)</span><span class="token-operator">;</span>
-<span class="token-operator">}</span>
+foo();" data-language="js">function foo() {
+    bar();
+}
 
-foo<span class="token-operator">(</span><span class="token-operator">)</span><span class="token-operator">;</span></code></pre></div><div class="answer-section"><div class="answer-panel" hidden=""><button type="button" class="answer-panel__close" aria-label="Скрыть ответ">×</button><h4 class="answer-panel__heading">12. Как работает Call Stack?</h4><p>Стек вызовов работает по принципу LIFO: последний вызванный фрейм обрабатывается первым. Каждый новый вызов кладётся наверх, а после завершения снимается обратно.</p><p>Поэтому при вложенных вызовах удобно визуально представлять стек как башню: верхний блок всегда самый активный.</p><p>Если в вопросе есть код, лучше отдельно пройтись по порядку выполнения и объяснить, почему результат именно такой. Это помогает показать не только знание термина, но и понимание поведения движка.</p><div class="answer-panel__clarifications"><h5 class="answer-panel__subheading">foo вызывает bar, bar вызывает baz.</h5><p>Это просто пример вложенности: на каждом вызове в стек добавляется новый кадр, а после завершения он снимается в обратном порядке.</p><h5 class="answer-panel__subheading">Как меняется стек по шагам?</h5><p>Сначала в стек попадает `foo`, внутри него `bar`, затем `baz`; после завершения вызовы снимаются в обратном порядке: `baz`, `bar`, `foo`.</p></div></div><button type="button" class="answer-toggle" aria-expanded="false">Ответ</button></div></div></article><article class="question-item" data-kind="question"><button type="button" class="question-item__toggle" aria-expanded="false">
-        <span class="question-item__title" data-base-text="13. В чем разница между Microtasks и Macrotasks?">13. В чем разница между Microtasks и Macrotasks?</span>
+function bar() {
+    baz();
+}
+
+function baz() {
+    console.log(&quot;done&quot;);
+}
+
+foo();</code></pre></div><ul class="question-list"><li data-base-text="Какие функции попадают в стек?">Какие функции попадают в стек?</li><li data-base-text="Как меняется стек по шагам?">Как меняется стек по шагам?</li><li data-base-text="Что произойдёт при слишком глубокой рекурсии?">Что произойдёт при слишком глубокой рекурсии?</li></ul><div class="answer-section"><div class="answer-panel" hidden=""><button type="button" class="answer-panel__close" aria-label="Скрыть ответ">×</button><h4 class="answer-panel__heading">12. Как работает Call Stack?</h4><p><code>Call Stack</code> — стек активных вызовов функций. Последний вызов лежит сверху и завершается первым.</p><h5 class="answer-panel__subheading">Какие функции попадают в стек?</h5><p>В стек попадает каждый активный вызов: сначала глобальный контекст, затем <code>foo()</code>, <code>bar()</code> и <code>baz()</code>.</p><h5 class="answer-panel__subheading">Как меняется стек по шагам?</h5><p>При вызове контекст добавляется наверх, при завершении удаляется. Стек растёт как <code>foo → bar → baz</code> и разбирается обратно.</p><h5 class="answer-panel__subheading">Что произойдёт при слишком глубокой рекурсии?</h5><p>При слишком глубокой рекурсии стек переполняется, и движок выбрасывает <code>RangeError: Maximum call stack size exceeded</code>.</p></div><button type="button" class="answer-toggle" aria-expanded="false">Ответ</button></div></div></article><article class="question-item" data-kind="question"><button type="button" class="question-item__toggle" aria-expanded="false">
+        <span class="question-item__title" data-base-text="13. В чём разница между microtasks и macrotasks?">13. В чём разница между microtasks и macrotasks?</span>
         <span class="question-item__chevron" aria-hidden="true"></span>
-    </button><div class="question-item__body"><p class="question-note" data-base-text="Посмотрим, почему Promise и setTimeout срабатывают в разном порядке.">Посмотрим, почему Promise и setTimeout срабатывают в разном порядке.</p><ul class="question-list"><li data-base-text="Почему Promise срабатывает раньше?">Почему Promise срабатывает раньше?</li><li data-base-text="Когда очищается очередь микрозадач?">Когда очищается очередь микрозадач?</li><li data-base-text="Может ли она зациклиться?">Может ли она зациклиться?</li></ul><div class="code-shell"><button type="button" class="copy-btn" aria-label="Скопировать код">
+    </button><div class="question-item__body"><p class="question-note" data-base-text="Посмотрим, почему Promise и setTimeout срабатывают в разном порядке.">Посмотрим, почему Promise и setTimeout срабатывают в разном порядке.</p><div class="code-shell"><button type="button" class="copy-btn" aria-label="Скопировать код">
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
             <path d="M8 4.75A2.75 2.75 0 0 1 10.75 2h6.5A2.75 2.75 0 0 1 20 4.75v9.5A2.75 2.75 0 0 1 17.25 17h-6.5A2.75 2.75 0 0 1 8 14.25v-9.5Zm2.75-1.25a1.25 1.25 0 0 0-1.25 1.25v9.5c0 .69.56 1.25 1.25 1.25h6.5c.69 0 1.25-.56 1.25-1.25v-9.5c0-.69-.56-1.25-1.25-1.25h-6.5Z"></path>
             <path d="M6.75 6A2.75 2.75 0 0 0 4 8.75v8.5A2.75 2.75 0 0 0 6.75 20h8.5A2.75 2.75 0 0 0 18 17.25V16h-1.5v1.25c0 .69-.56 1.25-1.25 1.25h-8.5c-.69 0-1.25-.56-1.25-1.25v-8.5c0-.69.56-1.25 1.25-1.25H7V6h-.25Z"></path>
         </svg>
-    </button><pre class="code-block"><code data-raw="console.log(1);
+    </button><pre class="code-block"><code data-raw="console.log(&quot;start&quot;);
 
-setTimeout(() =&gt; console.log(2));
+setTimeout(() =&gt; {
+    console.log(&quot;timeout&quot;);
+}, 0);
 
-Promise.resolve()
-        .then(() =&gt; console.log(3));
+Promise.resolve().then(() =&gt; {
+    console.log(&quot;promise&quot;);
+});
 
-console.log(4);" data-language="js"><span class="token-builtins">console</span><span class="token-operator">.</span>log<span class="token-operator">(</span><span class="token-number">1</span><span class="token-operator">)</span><span class="token-operator">;</span>
+console.log(&quot;end&quot;);" data-language="js">console.log(&quot;start&quot;);
 
-<span class="token-builtins">setTimeout</span><span class="token-operator">(</span><span class="token-operator">(</span><span class="token-operator">)</span> <span class="token-operator">=&gt;</span> <span class="token-builtins">console</span><span class="token-operator">.</span>log<span class="token-operator">(</span><span class="token-number">2</span><span class="token-operator">)</span><span class="token-operator">)</span><span class="token-operator">;</span>
+setTimeout(() =&gt; {
+    console.log(&quot;timeout&quot;);
+}, 0);
 
-<span class="token-builtins">Promise</span><span class="token-operator">.</span>resolve<span class="token-operator">(</span><span class="token-operator">)</span>
-        <span class="token-operator">.</span>then<span class="token-operator">(</span><span class="token-operator">(</span><span class="token-operator">)</span> <span class="token-operator">=&gt;</span> <span class="token-builtins">console</span><span class="token-operator">.</span>log<span class="token-operator">(</span><span class="token-number">3</span><span class="token-operator">)</span><span class="token-operator">)</span><span class="token-operator">;</span>
+Promise.resolve().then(() =&gt; {
+    console.log(&quot;promise&quot;);
+});
 
-<span class="token-builtins">console</span><span class="token-operator">.</span>log<span class="token-operator">(</span><span class="token-number">4</span><span class="token-operator">)</span><span class="token-operator">;</span></code></pre></div><div class="answer-section"><div class="answer-panel" hidden=""><button type="button" class="answer-panel__close" aria-label="Скрыть ответ">×</button><h4 class="answer-panel__heading">13. В чем разница между Microtasks и Macrotasks?</h4><p>Microtasks выполняются раньше macrotasks. В типичном примере `Promise.then` попадает в очередь микрозадач, поэтому срабатывает до `setTimeout`.</p><p>Если в ответе проговорить порядок `sync code -&gt; microtasks -&gt; macrotasks`, этого обычно уже достаточно для уверенного объяснения.</p><p>Если в вопросе есть код, лучше отдельно пройтись по порядку выполнения и объяснить, почему результат именно такой. Это помогает показать не только знание термина, но и понимание поведения движка.</p><div class="answer-panel__clarifications"><h5 class="answer-panel__subheading">Почему Promise срабатывает раньше?</h5><p>Потому что колбэк `Promise.then` попадает в microtasks, а `setTimeout` относится к macrotasks и ждёт своей очереди дольше.</p><h5 class="answer-panel__subheading">Когда очищается очередь микрозадач?</h5><p>Очередь микрозадач очищается после завершения текущего синхронного кода и до перехода к следующей макрозадаче.</p><h5 class="answer-panel__subheading">Может ли она зациклиться?</h5><p>Да, если микрозадачи постоянно добавляют новые микрозадачи, очередь может долго не отпускать управление к macrotasks.</p></div></div><button type="button" class="answer-toggle" aria-expanded="false">Ответ</button></div></div></article><article class="question-item" data-kind="question"><button type="button" class="question-item__toggle" aria-expanded="false">
+console.log(&quot;end&quot;);</code></pre></div><ul class="question-list"><li data-base-text="Что выведет этот код?">Что выведет этот код?</li><li data-base-text="Почему Promise срабатывает раньше setTimeout?">Почему Promise срабатывает раньше setTimeout?</li><li data-base-text="Когда очищается очередь микрозадач?">Когда очищается очередь микрозадач?</li><li data-base-text="Может ли очередь микрозадач надолго заблокировать страницу?">Может ли очередь микрозадач надолго заблокировать страницу?</li></ul><div class="answer-section"><div class="answer-panel" hidden=""><button type="button" class="answer-panel__close" aria-label="Скрыть ответ">×</button><h4 class="answer-panel__heading">13. В чём разница между microtasks и macrotasks?</h4><p><code>Microtasks</code> выполняются сразу после текущего синхронного кода, до перехода к следующей задаче. <code>Macrotasks</code> выполняются отдельными шагами event loop: например, таймеры, события и сетевые колбэки.</p><h5 class="answer-panel__subheading">Что выведет этот код?</h5><p>Сначала выполняется синхронный код: <code>start</code> и <code>end</code>. Затем микрозадача промиса выводит <code>promise</code>, и только потом задача таймера выводит <code>timeout</code>.</p><h5 class="answer-panel__subheading">Почему Promise срабатывает раньше setTimeout?</h5><p>После очистки стека сначала выполняются <code>microtasks</code>. Поэтому <code>Promise.then</code> идёт раньше <code>setTimeout</code>.</p><h5 class="answer-panel__subheading">Когда очищается очередь микрозадач?</h5><p>Она очищается после текущего синхронного кода и до следующей <code>macrotask</code>. Новые микрозадачи тоже выполняются в этом же цикле.</p><h5 class="answer-panel__subheading">Может ли очередь микрозадач надолго заблокировать страницу?</h5><p>Да. Бесконечная цепочка микрозадач не даст браузеру перейти к событиям и отрисовке.</p></div><button type="button" class="answer-toggle" aria-expanded="false">Ответ</button></div></div></article><article class="question-item" data-kind="question"><button type="button" class="question-item__toggle" aria-expanded="false">
         <span class="question-item__title" data-base-text="14. Как работают async / await?">14. Как работают async / await?</span>
         <span class="question-item__chevron" aria-hidden="true"></span>
-    </button><div class="question-item__body"><p class="question-note" data-base-text="Посмотрим, что происходит с async-функцией, когда встречается await.">Посмотрим, что происходит с async-функцией, когда встречается await.</p><ul class="question-list"><li data-base-text="Во что превращается async-функция?">Во что превращается async-функция?</li><li data-base-text="Что происходит на await?">Что происходит на await?</li><li data-base-text="Почему поток не блокируется?">Почему поток не блокируется?</li></ul><div class="code-shell"><button type="button" class="copy-btn" aria-label="Скопировать код">
+    </button><div class="question-item__body"><p class="question-note" data-base-text="Посмотрим, что происходит с async-функцией, когда выполнение доходит до await.">Посмотрим, что происходит с async-функцией, когда выполнение доходит до await.</p><div class="code-shell"><button type="button" class="copy-btn" aria-label="Скопировать код">
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
             <path d="M8 4.75A2.75 2.75 0 0 1 10.75 2h6.5A2.75 2.75 0 0 1 20 4.75v9.5A2.75 2.75 0 0 1 17.25 17h-6.5A2.75 2.75 0 0 1 8 14.25v-9.5Zm2.75-1.25a1.25 1.25 0 0 0-1.25 1.25v9.5c0 .69.56 1.25 1.25 1.25h6.5c.69 0 1.25-.56 1.25-1.25v-9.5c0-.69-.56-1.25-1.25-1.25h-6.5Z"></path>
             <path d="M6.75 6A2.75 2.75 0 0 0 4 8.75v8.5A2.75 2.75 0 0 0 6.75 20h8.5A2.75 2.75 0 0 0 18 17.25V16h-1.5v1.25c0 .69-.56 1.25-1.25 1.25h-8.5c-.69 0-1.25-.56-1.25-1.25v-8.5c0-.69.56-1.25 1.25-1.25H7V6h-.25Z"></path>
         </svg>
-    </button><pre class="code-block"><code data-raw="async function loadUser() {
-        const user = await fetch(&quot;/api/user&quot;).then((res) =&gt; res.json());
+    </button><pre class="code-block"><code data-raw="async function run() {
+    console.log(&quot;A&quot;);
+    await Promise.resolve();
+    console.log(&quot;B&quot;);
+}
 
-        console.log(user);
-}" data-language="js"><span class="token-keyword">async</span> <span class="token-keyword">function</span> loadUser<span class="token-operator">(</span><span class="token-operator">)</span> <span class="token-operator">{</span>
-        <span class="token-keyword">const</span> user <span class="token-operator">=</span> <span class="token-keyword">await</span> <span class="token-builtins">fetch</span><span class="token-operator">(</span><span class="token-string">"/api/user"</span><span class="token-operator">)</span><span class="token-operator">.</span>then<span class="token-operator">(</span><span class="token-operator">(</span>res<span class="token-operator">)</span> <span class="token-operator">=&gt;</span> res<span class="token-operator">.</span>json<span class="token-operator">(</span><span class="token-operator">)</span><span class="token-operator">)</span><span class="token-operator">;</span>
+console.log(&quot;C&quot;);
+run();
+console.log(&quot;D&quot;);" data-language="js">async function run() {
+    console.log(&quot;A&quot;);
+    await Promise.resolve();
+    console.log(&quot;B&quot;);
+}
 
-        <span class="token-builtins">console</span><span class="token-operator">.</span>log<span class="token-operator">(</span>user<span class="token-operator">)</span><span class="token-operator">;</span>
-<span class="token-operator">}</span></code></pre></div><div class="answer-section"><div class="answer-panel" hidden=""><button type="button" class="answer-panel__close" aria-label="Скрыть ответ">×</button><h4 class="answer-panel__heading">14. Как работают async / await?</h4><p>`async/await` — это удобный синтаксический слой над Promise. `await` приостанавливает выполнение только внутри самой async-функции, но не блокирует весь поток JavaScript.</p><p>Важно объяснить, что код после `await` продолжит работать позже, когда обещание разрешится, а не в момент самой строки.</p><p>Если в вопросе есть код, лучше отдельно пройтись по порядку выполнения и объяснить, почему результат именно такой. Это помогает показать не только знание термина, но и понимание поведения движка.</p><div class="answer-panel__clarifications"><h5 class="answer-panel__subheading">Во что превращается async-функция?</h5><p>По сути она возвращает Promise, а `return` внутри async-функции становится значением, с которым этот Promise будет resolved.</p><h5 class="answer-panel__subheading">Что происходит на await?</h5><p>Выполнение функции приостанавливается до разрешения Promise, а остальной код функции продолжит работу позже.</p><h5 class="answer-panel__subheading">Почему поток не блокируется?</h5><p>Потому что `await` не останавливает весь JavaScript-движок, а только приостанавливает выполнение конкретной async-функции.</p></div></div><button type="button" class="answer-toggle" aria-expanded="false">Ответ</button></div></div></article><article class="question-item" data-kind="question"><button type="button" class="question-item__toggle" aria-expanded="false">
+console.log(&quot;C&quot;);
+run();
+console.log(&quot;D&quot;);</code></pre></div><ul class="question-list"><li data-base-text="Что возвращает async-функция?">Что возвращает async-функция?</li><li data-base-text="Что происходит на await?">Что происходит на await?</li><li data-base-text="Почему основной поток не блокируется?">Почему основной поток не блокируется?</li></ul><div class="answer-section"><div class="answer-panel" hidden=""><button type="button" class="answer-panel__close" aria-label="Скрыть ответ">×</button><h4 class="answer-panel__heading">14. Как работают async / await?</h4><p><code>async / await</code> — синтаксис поверх <code>Promise</code>, который делает асинхронный код похожим на синхронный.</p><h5 class="answer-panel__subheading">Что возвращает async-функция?</h5><p><code>async</code>-функция всегда возвращает <code>Promise</code>: обычное значение станет fulfilled, ошибка — rejected.</p><h5 class="answer-panel__subheading">Что происходит на await?</h5><p><code>await</code> приостанавливает только текущую async-функцию. Её продолжение попадёт в очередь микрозадач после завершения промиса.</p><h5 class="answer-panel__subheading">Почему основной поток не блокируется?</h5><p><code>await</code> отдаёт управление наружу, поэтому синхронный код после вызова <code>run()</code> продолжает выполняться.</p></div><button type="button" class="answer-toggle" aria-expanded="false">Ответ</button></div></div></article><article class="question-item" data-kind="question"><button type="button" class="question-item__toggle" aria-expanded="false">
         <span class="question-item__title" data-base-text="15. Что такое Promise и как он работает?">15. Что такое Promise и как он работает?</span>
         <span class="question-item__chevron" aria-hidden="true"></span>
-    </button><div class="question-item__body"><p class="question-note" data-base-text="Разберём, как устроен Promise и какие у него основные методы.">Разберём, как устроен Promise и какие у него основные методы.</p><ul class="question-list"><li data-base-text="Почему состояние pending меняется только один раз?">Почему состояние pending меняется только один раз?</li><li data-base-text="Почему finally всегда вызывается?">Почему finally всегда вызывается?</li><li data-base-text="Чем отличаются all / race / any / allSettled?">Чем отличаются all / race / any / allSettled?</li></ul><div class="code-shell"><button type="button" class="copy-btn" aria-label="Скопировать код">
+    </button><div class="question-item__body"><p class="question-note" data-base-text="Разберём состояние Promise, одноразовое завершение и основные методы для композиции.">Разберём состояние Promise, одноразовое завершение и основные методы для композиции.</p><div class="code-shell"><button type="button" class="copy-btn" aria-label="Скопировать код">
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
             <path d="M8 4.75A2.75 2.75 0 0 1 10.75 2h6.5A2.75 2.75 0 0 1 20 4.75v9.5A2.75 2.75 0 0 1 17.25 17h-6.5A2.75 2.75 0 0 1 8 14.25v-9.5Zm2.75-1.25a1.25 1.25 0 0 0-1.25 1.25v9.5c0 .69.56 1.25 1.25 1.25h6.5c.69 0 1.25-.56 1.25-1.25v-9.5c0-.69-.56-1.25-1.25-1.25h-6.5Z"></path>
             <path d="M6.75 6A2.75 2.75 0 0 0 4 8.75v8.5A2.75 2.75 0 0 0 6.75 20h8.5A2.75 2.75 0 0 0 18 17.25V16h-1.5v1.25c0 .69-.56 1.25-1.25 1.25h-8.5c-.69 0-1.25-.56-1.25-1.25v-8.5c0-.69.56-1.25 1.25-1.25H7V6h-.25Z"></path>
         </svg>
-    </button><pre class="code-block"><code data-raw="const promise = new Promise((resolve) =&gt; {
-        resolve(&quot;ok&quot;);
+    </button><pre class="code-block"><code data-raw="const promise = new Promise((resolve, reject) =&gt; {
+    resolve(&quot;ok&quot;);
+    reject(new Error(&quot;fail&quot;));
 });
 
 promise
-        .then(console.log)
-        .finally(() =&gt; console.log(&quot;done&quot;));" data-language="js"><span class="token-keyword">const</span> promise <span class="token-operator">=</span> <span class="token-keyword">new</span> <span class="token-builtins">Promise</span><span class="token-operator">(</span><span class="token-operator">(</span>resolve<span class="token-operator">)</span> <span class="token-operator">=&gt;</span> <span class="token-operator">{</span>
-        resolve<span class="token-operator">(</span><span class="token-string">"ok"</span><span class="token-operator">)</span><span class="token-operator">;</span>
-<span class="token-operator">}</span><span class="token-operator">)</span><span class="token-operator">;</span>
+    .then(console.log)
+    .catch(console.error)
+    .finally(() =&gt; console.log(&quot;done&quot;));" data-language="js">const promise = new Promise((resolve, reject) =&gt; {
+    resolve(&quot;ok&quot;);
+    reject(new Error(&quot;fail&quot;));
+});
 
 promise
-        <span class="token-operator">.</span>then<span class="token-operator">(</span><span class="token-builtins">console</span><span class="token-operator">.</span>log<span class="token-operator">)</span>
-        <span class="token-operator">.</span><span class="token-keyword">finally</span><span class="token-operator">(</span><span class="token-operator">(</span><span class="token-operator">)</span> <span class="token-operator">=&gt;</span> <span class="token-builtins">console</span><span class="token-operator">.</span>log<span class="token-operator">(</span><span class="token-string">"done"</span><span class="token-operator">)</span><span class="token-operator">)</span><span class="token-operator">;</span></code></pre></div><div class="answer-section"><div class="answer-panel" hidden=""><button type="button" class="answer-panel__close" aria-label="Скрыть ответ">×</button><h4 class="answer-panel__heading">15. Что такое Promise и как он работает?</h4><p>Promise описывает результат асинхронной операции и проходит состояния `pending`, `fulfilled` или `rejected`. Его сильная сторона — удобная цепочка обработки через `then`, `catch` и `finally`.</p><p>На собеседовании полезно отдельно сказать про гарантии: результат меняется один раз, а все последующие обработчики выстраиваются поверх этого состояния.</p><p>Если в вопросе есть код, лучше отдельно пройтись по порядку выполнения и объяснить, почему результат именно такой. Это помогает показать не только знание термина, но и понимание поведения движка.</p><div class="answer-panel__clarifications"><h5 class="answer-panel__subheading">Почему состояние pending меняется только один раз?</h5><p>Потому что Promise можно завершить только один раз: либо успешно, либо с ошибкой, и это состояние уже не меняется повторно.</p><h5 class="answer-panel__subheading">Почему finally всегда вызывается?</h5><p>Потому что `finally` нужен для финальной логики, которая должна выполниться независимо от того, был ли успех или ошибка.</p><h5 class="answer-panel__subheading">Чем отличаются all / race / any / allSettled?</h5><p>`all` ждёт все успешные результаты, `race` берёт первый завершившийся, `any` ждёт первый успешный, а `allSettled` собирает итог по всем промисам.</p></div></div><button type="button" class="answer-toggle" aria-expanded="false">Ответ</button></div></div></article><article class="question-item" data-kind="extra"><button type="button" class="question-item__toggle" aria-expanded="false">
+    .then(console.log)
+    .catch(console.error)
+    .finally(() =&gt; console.log(&quot;done&quot;));</code></pre></div><ul class="question-list"><li data-base-text="Что выведет этот код?">Что выведет этот код?</li><li data-base-text="Почему состояние Promise меняется только один раз?">Почему состояние Promise меняется только один раз?</li><li data-base-text="Зачем нужен finally?">Зачем нужен finally?</li><li data-base-text="Чем отличаются all / race / any / allSettled?">Чем отличаются all / race / any / allSettled?</li></ul><div class="answer-section"><div class="answer-panel" hidden=""><button type="button" class="answer-panel__close" aria-label="Скрыть ответ">×</button><h4 class="answer-panel__heading">15. Что такое Promise и как он работает?</h4><p><code>Promise</code> — объект для результата асинхронной операции: успеха или ошибки.</p><h5 class="answer-panel__subheading">Что выведет этот код?</h5><p>Код выведет <code>ok</code>, затем <code>done</code>. <code>reject</code> уже не сработает, потому что первым был <code>resolve("ok")</code>.</p><h5 class="answer-panel__subheading">Почему состояние Promise меняется только один раз?</h5><p>Промис переходит из <code>pending</code> только один раз: в <code>fulfilled</code> или <code>rejected</code>. После этого состояние не меняется.</p><h5 class="answer-panel__subheading">Зачем нужен finally?</h5><p><code>finally</code> нужен для общего завершающего действия: скрыть loader, закрыть соединение, освободить ресурс.</p><h5 class="answer-panel__subheading">Чем отличаются all / race / any / allSettled?</h5><p><code>all</code> ждёт все и падает при первом reject. <code>race</code> берёт первый завершённый. <code>any</code> берёт первый успешный. <code>allSettled</code> ждёт все статусы.</p></div><button type="button" class="answer-toggle" aria-expanded="false">Ответ</button></div></div></article><article class="question-item" data-kind="extra"><button type="button" class="question-item__toggle" aria-expanded="false">
         <span class="question-item__title" data-base-text="Практика по блоку">Практика по блоку</span>
         <span class="question-item__chevron" aria-hidden="true"></span>
-    </button><div class="question-item__body"><p class="question-note" data-base-text="Собери Promise.all: сохрани порядок результатов и остановись при первом reject.">Собери Promise.all: сохрани порядок результатов и остановись при первом reject.</p><ul class="question-list"><li data-base-text="Как сохранить порядок результатов?">Как сохранить порядок результатов?</li><li data-base-text="Что делать при первом reject?">Что делать при первом reject?</li></ul><div class="code-shell"><button type="button" class="copy-btn" aria-label="Скопировать код">
+    </button><div class="question-item__body"><p class="question-note" data-base-text="Собери свою версию Promise.all: сохрани порядок результатов и остановись при первом reject.">Собери свою версию Promise.all: сохрани порядок результатов и остановись при первом reject.</p><div class="code-shell"><button type="button" class="copy-btn" aria-label="Скопировать код">
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
             <path d="M8 4.75A2.75 2.75 0 0 1 10.75 2h6.5A2.75 2.75 0 0 1 20 4.75v9.5A2.75 2.75 0 0 1 17.25 17h-6.5A2.75 2.75 0 0 1 8 14.25v-9.5Zm2.75-1.25a1.25 1.25 0 0 0-1.25 1.25v9.5c0 .69.56 1.25 1.25 1.25h6.5c.69 0 1.25-.56 1.25-1.25v-9.5c0-.69-.56-1.25-1.25-1.25h-6.5Z"></path>
             <path d="M6.75 6A2.75 2.75 0 0 0 4 8.75v8.5A2.75 2.75 0 0 0 6.75 20h8.5A2.75 2.75 0 0 0 18 17.25V16h-1.5v1.25c0 .69-.56 1.25-1.25 1.25h-8.5c-.69 0-1.25-.56-1.25-1.25v-8.5c0-.69.56-1.25 1.25-1.25H7V6h-.25Z"></path>
         </svg>
     </button><pre class="code-block"><code data-raw="function promiseAll(promises) {
-        return new Promise((resolve, reject) =&gt; {
-                const results = [];
-                let done = 0;
+    // твой код
+}
 
-                // TODO: пройтись по promises и собрать ответы
+const first = new Promise((resolve) =&gt; {
+    setTimeout(() =&gt; resolve(&quot;first&quot;), 300);
+});
+
+const second = new Promise((resolve) =&gt; {
+    setTimeout(() =&gt; resolve(&quot;second&quot;), 100);
+});
+
+const third = new Promise((resolve) =&gt; {
+    setTimeout(() =&gt; resolve(&quot;third&quot;), 200);
+});
+
+promiseAll([first, second, third]).then(console.log);
+// [&quot;first&quot;, &quot;second&quot;, &quot;third&quot;]" data-language="js">function promiseAll(promises) {
+    // твой код
+}
+
+const first = new Promise((resolve) =&gt; {
+    setTimeout(() =&gt; resolve(&quot;first&quot;), 300);
+});
+
+const second = new Promise((resolve) =&gt; {
+    setTimeout(() =&gt; resolve(&quot;second&quot;), 100);
+});
+
+const third = new Promise((resolve) =&gt; {
+    setTimeout(() =&gt; resolve(&quot;third&quot;), 200);
+});
+
+promiseAll([first, second, third]).then(console.log);
+// [&quot;first&quot;, &quot;second&quot;, &quot;third&quot;]</code></pre></div><ul class="question-list"><li data-base-text="Как сохранить порядок результатов?">Как сохранить порядок результатов?</li><li data-base-text="Что делать при первом reject?">Что делать при первом reject?</li></ul><div class="answer-section"><div class="answer-panel" hidden=""><button type="button" class="answer-panel__close" aria-label="Скрыть ответ">×</button><h4 class="answer-panel__heading">Практика по блоку</h4><p>Нужно вернуть <code>Promise</code>, который собирает результаты по исходным индексам.</p><h5 class="answer-panel__subheading">Решение задачи</h5><div class="code-shell"><button type="button" class="copy-btn" aria-label="Скопировать код">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M8 4.75A2.75 2.75 0 0 1 10.75 2h6.5A2.75 2.75 0 0 1 20 4.75v9.5A2.75 2.75 0 0 1 17.25 17h-6.5A2.75 2.75 0 0 1 8 14.25v-9.5Zm2.75-1.25a1.25 1.25 0 0 0-1.25 1.25v9.5c0 .69.56 1.25 1.25 1.25h6.5c.69 0 1.25-.56 1.25-1.25v-9.5c0-.69-.56-1.25-1.25-1.25h-6.5Z"></path>
+            <path d="M6.75 6A2.75 2.75 0 0 0 4 8.75v8.5A2.75 2.75 0 0 0 6.75 20h8.5A2.75 2.75 0 0 0 18 17.25V16h-1.5v1.25c0 .69-.56 1.25-1.25 1.25h-8.5c-.69 0-1.25-.56-1.25-1.25v-8.5c0-.69.56-1.25 1.25-1.25H7V6h-.25Z"></path>
+        </svg>
+    </button><pre class="code-block"><code data-raw="function promiseAll(promises) {
+    return new Promise((resolve, reject) =&gt; {
+        const results = [];
+        let completed = 0;
+
+        if (promises.length === 0) {
+            resolve(results);
+            return;
+        }
+
+        promises.forEach((promise, index) =&gt; {
+            Promise.resolve(promise)
+                .then((value) =&gt; {
+                    results[index] = value;
+                    completed += 1;
+
+                    if (completed === promises.length) {
+                        resolve(results);
+                    }
+                })
+                .catch(reject);
         });
-}" data-language="js"><span class="token-keyword">function</span> promiseAll<span class="token-operator">(</span>promises<span class="token-operator">)</span> <span class="token-operator">{</span>
-        <span class="token-keyword">return</span> <span class="token-keyword">new</span> <span class="token-builtins">Promise</span><span class="token-operator">(</span><span class="token-operator">(</span>resolve<span class="token-operator">,</span> reject<span class="token-operator">)</span> <span class="token-operator">=&gt;</span> <span class="token-operator">{</span>
-                <span class="token-keyword">const</span> results <span class="token-operator">=</span> <span class="token-operator">[</span><span class="token-operator">]</span><span class="token-operator">;</span>
-                <span class="token-keyword">let</span> done <span class="token-operator">=</span> <span class="token-number">0</span><span class="token-operator">;</span>
+    });
+}
 
-                <span class="token-comment">// TODO: пройтись по promises и собрать ответы</span>
-        <span class="token-operator">}</span><span class="token-operator">)</span><span class="token-operator">;</span>
-<span class="token-operator">}</span></code></pre></div><div class="answer-section"><div class="answer-panel" hidden=""><button type="button" class="answer-panel__close" aria-label="Скрыть ответ">×</button><h4 class="answer-panel__heading">Практика по блоку</h4><p>Собери Promise.all: сохрани порядок результатов и остановись при первом reject.</p><p>Если в вопросе есть код, лучше отдельно пройтись по порядку выполнения и объяснить, почему результат именно такой. Это помогает показать не только знание термина, но и понимание поведения движка.</p><div class="answer-panel__clarifications"><h5 class="answer-panel__subheading">Как сохранить порядок результатов?</h5><p>Коротко: как сохранить порядок результатов лучше отвечать через определение, механизм работы и практический вывод.</p><h5 class="answer-panel__subheading">Что делать при первом reject?</h5><p>Коротко: что делать при первом reject лучше отвечать через определение, механизм работы и практический вывод.</p></div></div><button type="button" class="answer-toggle" aria-expanded="false">Ответ</button></div></div></article></div></section><section class="section-card" id="prototype"><div class="section-head"><div><h2 class="section-title" data-base-text="Прототипы">Прототипы</h2><p class="section-summary" data-base-text="Проверяем, как кандидат понимает цепочку прототипов, instanceof и синтаксический сахар классов.">Проверяем, как кандидат понимает цепочку прототипов, instanceof и синтаксический сахар классов.</p></div></div><div class="cards"><article class="question-item" data-kind="question"><button type="button" class="question-item__toggle" aria-expanded="false">
-        <span class="question-item__title" data-base-text="16. Что такое prototype?">16. Что такое prototype?</span>
+const first = new Promise((resolve) =&gt; {
+    setTimeout(() =&gt; resolve(&quot;first&quot;), 300);
+});
+
+const second = new Promise((resolve) =&gt; {
+    setTimeout(() =&gt; resolve(&quot;second&quot;), 100);
+});
+
+const third = new Promise((resolve) =&gt; {
+    setTimeout(() =&gt; resolve(&quot;third&quot;), 200);
+});
+
+promiseAll([first, second, third]).then(console.log);
+// [&quot;first&quot;, &quot;second&quot;, &quot;third&quot;]" data-language="js">function promiseAll(promises) {
+    return new Promise((resolve, reject) =&gt; {
+        const results = [];
+        let completed = 0;
+
+        if (promises.length === 0) {
+            resolve(results);
+            return;
+        }
+
+        promises.forEach((promise, index) =&gt; {
+            Promise.resolve(promise)
+                .then((value) =&gt; {
+                    results[index] = value;
+                    completed += 1;
+
+                    if (completed === promises.length) {
+                        resolve(results);
+                    }
+                })
+                .catch(reject);
+        });
+    });
+}
+
+const first = new Promise((resolve) =&gt; {
+    setTimeout(() =&gt; resolve(&quot;first&quot;), 300);
+});
+
+const second = new Promise((resolve) =&gt; {
+    setTimeout(() =&gt; resolve(&quot;second&quot;), 100);
+});
+
+const third = new Promise((resolve) =&gt; {
+    setTimeout(() =&gt; resolve(&quot;third&quot;), 200);
+});
+
+promiseAll([first, second, third]).then(console.log);
+// [&quot;first&quot;, &quot;second&quot;, &quot;third&quot;]</code></pre></div><h5 class="answer-panel__subheading">Как сохранить порядок результатов?</h5><p>Записывай результат по индексу исходного массива, а не через <code>push</code>. Так порядок сохранится независимо от скорости промисов.</p><h5 class="answer-panel__subheading">Что делать при первом reject?</h5><p>При первом отклонении сразу вызывай <code>reject</code> итогового промиса.</p></div><button type="button" class="answer-toggle" aria-expanded="false">Ответ</button></div></div></article></div></section><section class="section-card" id="prototype"><div class="section-head"><div><h2 class="section-title" data-base-text="Прототипы">Прототипы</h2><p class="section-summary" data-base-text="Проверяем, как кандидат понимает цепочку прототипов, instanceof, Object.create и синтаксис class.">Проверяем, как кандидат понимает цепочку прототипов, instanceof, Object.create и синтаксис class.</p></div></div><div class="cards"><article class="question-item" data-kind="question"><button type="button" class="question-item__toggle" aria-expanded="false">
+        <span class="question-item__title" data-base-text="16. Что такое прототип и зачем он нужен?">16. Что такое прототип и зачем он нужен?</span>
         <span class="question-item__chevron" aria-hidden="true"></span>
-    </button><div class="question-item__body"><p class="question-note" data-base-text="Посмотрим, как читать prototype у объекта и чем он отличается от __proto__.">Посмотрим, как читать prototype у объекта и чем он отличается от __proto__.</p><ul class="question-list"><li data-base-text="Чем prototype отличается от __proto__?">Чем prototype отличается от __proto__?</li><li data-base-text="Что такое [[Prototype]]?">Что такое [[Prototype]]?</li></ul><div class="code-shell"><button type="button" class="copy-btn" aria-label="Скопировать код">
+    </button><div class="question-item__body"><p class="question-note" data-base-text="Посмотрим, как методы попадают в прототип и почему экземпляры могут их использовать.">Посмотрим, как методы попадают в прототип и почему экземпляры могут их использовать.</p><div class="code-shell"><button type="button" class="copy-btn" aria-label="Скопировать код">
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
             <path d="M8 4.75A2.75 2.75 0 0 1 10.75 2h6.5A2.75 2.75 0 0 1 20 4.75v9.5A2.75 2.75 0 0 1 17.25 17h-6.5A2.75 2.75 0 0 1 8 14.25v-9.5Zm2.75-1.25a1.25 1.25 0 0 0-1.25 1.25v9.5c0 .69.56 1.25 1.25 1.25h6.5c.69 0 1.25-.56 1.25-1.25v-9.5c0-.69-.56-1.25-1.25-1.25h-6.5Z"></path>
             <path d="M6.75 6A2.75 2.75 0 0 0 4 8.75v8.5A2.75 2.75 0 0 0 6.75 20h8.5A2.75 2.75 0 0 0 18 17.25V16h-1.5v1.25c0 .69-.56 1.25-1.25 1.25h-8.5c-.69 0-1.25-.56-1.25-1.25v-8.5c0-.69.56-1.25 1.25-1.25H7V6h-.25Z"></path>
         </svg>
     </button><pre class="code-block"><code data-raw="function User(name) {
-        this.name = name;
+    this.name = name;
 }
 
 User.prototype.sayHi = function () {
-        console.log(this.name);
-};" data-language="js"><span class="token-keyword">function</span> User<span class="token-operator">(</span>name<span class="token-operator">)</span> <span class="token-operator">{</span>
-        <span class="token-keyword">this</span><span class="token-operator">.</span>name <span class="token-operator">=</span> name<span class="token-operator">;</span>
-<span class="token-operator">}</span>
+    console.log(this.name);
+};
 
-User<span class="token-operator">.</span>prototype<span class="token-operator">.</span>sayHi <span class="token-operator">=</span> <span class="token-keyword">function</span> <span class="token-operator">(</span><span class="token-operator">)</span> <span class="token-operator">{</span>
-        <span class="token-builtins">console</span><span class="token-operator">.</span>log<span class="token-operator">(</span><span class="token-keyword">this</span><span class="token-operator">.</span>name<span class="token-operator">)</span><span class="token-operator">;</span>
-<span class="token-operator">}</span><span class="token-operator">;</span></code></pre></div><div class="answer-section"><div class="answer-panel" hidden=""><button type="button" class="answer-panel__close" aria-label="Скрыть ответ">×</button><h4 class="answer-panel__heading">16. Что такое prototype?</h4><p>Prototype — это объект, через который JavaScript ищет свойства и методы выше по цепочке. Если свойства нет на самом объекте, движок поднимается к его прототипу и дальше по цепочке.</p><p>Именно поэтому методы лучше хранить на прототипе: экземпляры разделяют одну реализацию и не дублируют функции в памяти.</p><p>Если в вопросе есть код, лучше отдельно пройтись по порядку выполнения и объяснить, почему результат именно такой. Это помогает показать не только знание термина, но и понимание поведения движка.</p><div class="answer-panel__clarifications"><h5 class="answer-panel__subheading">Чем prototype отличается от __proto__?</h5><p>У `prototype` есть конструктор, а `__proto__` показывает конкретный прототип уже созданного объекта. В обычной речи проще говорить, что `prototype` задаёт шаблон, а `__proto__` указывает на реальную связь объекта с ним.</p><h5 class="answer-panel__subheading">Что такое [[Prototype]]?</h5><p>Это внутреннее скрытое свойство объекта, через которое и строится цепочка поиска свойств.</p></div></div><button type="button" class="answer-toggle" aria-expanded="false">Ответ</button></div></div></article><article class="question-item" data-kind="question"><button type="button" class="question-item__toggle" aria-expanded="false">
+const user = new User(&quot;Ada&quot;);
+user.sayHi();" data-language="js">function User(name) {
+    this.name = name;
+}
+
+User.prototype.sayHi = function () {
+    console.log(this.name);
+};
+
+const user = new User(&quot;Ada&quot;);
+user.sayHi();</code></pre></div><ul class="question-list"><li data-base-text="Чем prototype отличается от __proto__?">Чем prototype отличается от __proto__?</li><li data-base-text="Что такое [[Prototype]]?">Что такое [[Prototype]]?</li><li data-base-text="Почему методы часто кладут в prototype?">Почему методы часто кладут в prototype?</li></ul><div class="answer-section"><div class="answer-panel" hidden=""><button type="button" class="answer-panel__close" aria-label="Скрыть ответ">×</button><h4 class="answer-panel__heading">16. Что такое прототип и зачем он нужен?</h4><p>Прототип — это объект, к которому другой объект обращается при поиске свойств и методов. Он нужен, чтобы объекты могли переиспользовать общее поведение без копирования методов в каждый экземпляр.</p><p>В примере метод <code>sayHi</code> лежит в <code>User.prototype</code>, поэтому все объекты, созданные через <code>new User()</code>, могут найти этот метод через цепочку прототипов.</p><h5 class="answer-panel__subheading">Чем prototype отличается от __proto__?</h5><p><code>prototype</code> принадлежит функции-конструктору и задаёт прототип будущих экземпляров. <code>__proto__</code> указывает на реальный прототип уже созданного объекта.</p><h5 class="answer-panel__subheading">Что такое [[Prototype]]?</h5><p><code>[[Prototype]]</code> — внутренняя ссылка объекта на его прототип. Через неё движок поднимается выше по цепочке при поиске свойства.</p><h5 class="answer-panel__subheading">Почему методы часто кладут в prototype?</h5><p>Так экземпляры используют одну общую функцию вместо отдельных копий метода в каждом объекте.</p></div><button type="button" class="answer-toggle" aria-expanded="false">Ответ</button></div></div></article><article class="question-item" data-kind="question"><button type="button" class="question-item__toggle" aria-expanded="false">
         <span class="question-item__title" data-base-text="17. Как происходит поиск свойства в цепочке прототипов?">17. Как происходит поиск свойства в цепочке прототипов?</span>
         <span class="question-item__chevron" aria-hidden="true"></span>
-    </button><div class="question-item__body"><p class="question-note" data-base-text="Разберём, как свойство ищется вверх по цепочке.">Разберём, как свойство ищется вверх по цепочке.</p><ul class="question-list"><li data-base-text="Нарисовать цепочку прототипов.">Нарисовать цепочку прототипов.</li></ul><div class="code-shell"><button type="button" class="copy-btn" aria-label="Скопировать код">
+    </button><div class="question-item__body"><p class="question-note" data-base-text="Разберём, где движок ищет свойство и когда поднимается выше по цепочке.">Разберём, где движок ищет свойство и когда поднимается выше по цепочке.</p><div class="code-shell"><button type="button" class="copy-btn" aria-label="Скопировать код">
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
             <path d="M8 4.75A2.75 2.75 0 0 1 10.75 2h6.5A2.75 2.75 0 0 1 20 4.75v9.5A2.75 2.75 0 0 1 17.25 17h-6.5A2.75 2.75 0 0 1 8 14.25v-9.5Zm2.75-1.25a1.25 1.25 0 0 0-1.25 1.25v9.5c0 .69.56 1.25 1.25 1.25h6.5c.69 0 1.25-.56 1.25-1.25v-9.5c0-.69-.56-1.25-1.25-1.25h-6.5Z"></path>
             <path d="M6.75 6A2.75 2.75 0 0 0 4 8.75v8.5A2.75 2.75 0 0 0 6.75 20h8.5A2.75 2.75 0 0 0 18 17.25V16h-1.5v1.25c0 .69-.56 1.25-1.25 1.25h-8.5c-.69 0-1.25-.56-1.25-1.25v-8.5c0-.69.56-1.25 1.25-1.25H7V6h-.25Z"></path>
         </svg>
-    </button><pre class="code-block"><code data-raw="const animal = { eats: true };
-const rabbit = Object.create(animal);
+    </button><pre class="code-block"><code data-raw="const base = {
+    role: &quot;admin&quot;
+};
 
-console.log(rabbit.eats);" data-language="js"><span class="token-keyword">const</span> animal <span class="token-operator">=</span> <span class="token-operator">{</span> eats<span class="token-operator">:</span> true <span class="token-operator">}</span><span class="token-operator">;</span>
-<span class="token-keyword">const</span> rabbit <span class="token-operator">=</span> <span class="token-builtins">Object</span><span class="token-operator">.</span>create<span class="token-operator">(</span>animal<span class="token-operator">)</span><span class="token-operator">;</span>
+const user = Object.create(base);
+user.name = &quot;Ada&quot;;
 
-<span class="token-builtins">console</span><span class="token-operator">.</span>log<span class="token-operator">(</span>rabbit<span class="token-operator">.</span>eats<span class="token-operator">)</span><span class="token-operator">;</span></code></pre></div><div class="answer-section"><div class="answer-panel" hidden=""><button type="button" class="answer-panel__close" aria-label="Скрыть ответ">×</button><h4 class="answer-panel__heading">17. Как происходит поиск свойства в цепочке прототипов?</h4><p>Когда свойство не найдено на самом объекте, движок поднимается по цепочке прототипов до тех пор, пока не найдёт нужный ключ или не дойдёт до конца цепочки.</p><p>Если объяснять на примере, удобно начинать с самого объекта, а затем последовательно показывать, как поиск уходит выше.</p><p>Если в вопросе есть код, лучше отдельно пройтись по порядку выполнения и объяснить, почему результат именно такой. Это помогает показать не только знание термина, но и понимание поведения движка.</p><div class="answer-panel__clarifications"><h5 class="answer-panel__subheading">Нарисовать цепочку прототипов.</h5><p>Обычно начинают с самого объекта, затем показывают его `[[Prototype]]`, потом следующий уровень и так до `null`.</p></div></div><button type="button" class="answer-toggle" aria-expanded="false">Ответ</button></div></div></article><article class="question-item" data-kind="question"><button type="button" class="question-item__toggle" aria-expanded="false">
+console.log(user.role);" data-language="js">const base = {
+    role: &quot;admin&quot;
+};
+
+const user = Object.create(base);
+user.name = &quot;Ada&quot;;
+
+console.log(user.role);</code></pre></div><ul class="question-list"><li data-base-text="Где сначала ищется свойство?">Где сначала ищется свойство?</li><li data-base-text="Когда поиск переходит в прототип?">Когда поиск переходит в прототип?</li><li data-base-text="Что будет, если свойство нигде не найдено?">Что будет, если свойство нигде не найдено?</li></ul><div class="answer-section"><div class="answer-panel" hidden=""><button type="button" class="answer-panel__close" aria-label="Скрыть ответ">×</button><h4 class="answer-panel__heading">17. Как происходит поиск свойства в цепочке прототипов?</h4><p>Свойство ищется сначала на объекте, затем выше по цепочке <code>[[Prototype]]</code>.</p><h5 class="answer-panel__subheading">Где сначала ищется свойство?</h5><p>Сначала проверяются собственные свойства объекта. В примере у <code>user</code> есть <code>name</code>, но нет <code>role</code>.</p><h5 class="answer-panel__subheading">Когда поиск переходит в прототип?</h5><p>Если свойства нет на объекте, движок проверяет прототип. Поэтому <code>user.role</code> находится в <code>base</code>.</p><h5 class="answer-panel__subheading">Что будет, если свойство нигде не найдено?</h5><p>Если цепочка дошла до <code>null</code>, чтение вернёт <code>undefined</code>.</p></div><button type="button" class="answer-toggle" aria-expanded="false">Ответ</button></div></div></article><article class="question-item" data-kind="question"><button type="button" class="question-item__toggle" aria-expanded="false">
         <span class="question-item__title" data-base-text="18. Зачем нужен Object.create()?">18. Зачем нужен Object.create()?</span>
         <span class="question-item__chevron" aria-hidden="true"></span>
-    </button><div class="question-item__body"><p class="question-note" data-base-text="Посмотрим, когда полезен объект без Object.prototype.">Посмотрим, когда полезен объект без Object.prototype.</p><ul class="question-list"><li data-base-text="Почему объект без Object.prototype иногда полезен?">Почему объект без Object.prototype иногда полезен?</li></ul><div class="code-shell"><button type="button" class="copy-btn" aria-label="Скопировать код">
+    </button><div class="question-item__body"><p class="question-note" data-base-text="Посмотрим, как явно создать объект с нужным прототипом или совсем без прототипа.">Посмотрим, как явно создать объект с нужным прототипом или совсем без прототипа.</p><div class="code-shell"><button type="button" class="copy-btn" aria-label="Скопировать код">
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
             <path d="M8 4.75A2.75 2.75 0 0 1 10.75 2h6.5A2.75 2.75 0 0 1 20 4.75v9.5A2.75 2.75 0 0 1 17.25 17h-6.5A2.75 2.75 0 0 1 8 14.25v-9.5Zm2.75-1.25a1.25 1.25 0 0 0-1.25 1.25v9.5c0 .69.56 1.25 1.25 1.25h6.5c.69 0 1.25-.56 1.25-1.25v-9.5c0-.69-.56-1.25-1.25-1.25h-6.5Z"></path>
             <path d="M6.75 6A2.75 2.75 0 0 0 4 8.75v8.5A2.75 2.75 0 0 0 6.75 20h8.5A2.75 2.75 0 0 0 18 17.25V16h-1.5v1.25c0 .69-.56 1.25-1.25 1.25h-8.5c-.69 0-1.25-.56-1.25-1.25v-8.5c0-.69.56-1.25 1.25-1.25H7V6h-.25Z"></path>
         </svg>
-    </button><pre class="code-block"><code data-raw="const dict = Object.create(null);
+    </button><pre class="code-block"><code data-raw="const dictionary = Object.create(null);
+dictionary.key = &quot;value&quot;;
 
-dict.foo = 1;" data-language="js"><span class="token-keyword">const</span> dict <span class="token-operator">=</span> <span class="token-builtins">Object</span><span class="token-operator">.</span>create<span class="token-operator">(</span>null<span class="token-operator">)</span><span class="token-operator">;</span>
+console.log(dictionary.key);
+console.log(dictionary.toString);" data-language="js">const dictionary = Object.create(null);
+dictionary.key = &quot;value&quot;;
 
-dict<span class="token-operator">.</span>foo <span class="token-operator">=</span> <span class="token-number">1</span><span class="token-operator">;</span></code></pre></div><div class="answer-section"><div class="answer-panel" hidden=""><button type="button" class="answer-panel__close" aria-label="Скрыть ответ">×</button><h4 class="answer-panel__heading">18. Зачем нужен Object.create()?</h4><p>`Object.create()` создаёт новый объект с явно заданным прототипом. Это полезно, когда нужен объект без стандартной цепочки `Object.prototype` или когда хочется вручную собрать иерархию.</p><p>Практически это простой и очень прозрачный способ управлять наследованием в прототипной модели.</p><p>Если в вопросе есть код, лучше отдельно пройтись по порядку выполнения и объяснить, почему результат именно такой. Это помогает показать не только знание термина, но и понимание поведения движка.</p><div class="answer-panel__clarifications"><h5 class="answer-panel__subheading">Почему объект без Object.prototype иногда полезен?</h5><p>Потому что такой объект не наследует служебные свойства вроде `toString`, и его удобно использовать как чистый словарь.</p></div></div><button type="button" class="answer-toggle" aria-expanded="false">Ответ</button></div></div></article><article class="question-item" data-kind="question"><button type="button" class="question-item__toggle" aria-expanded="false">
+console.log(dictionary.key);
+console.log(dictionary.toString);</code></pre></div><ul class="question-list"><li data-base-text="Что делает Object.create()?">Что делает Object.create()?</li><li data-base-text="Почему объект без Object.prototype иногда полезен?">Почему объект без Object.prototype иногда полезен?</li><li data-base-text="Какие ограничения есть у такого объекта?">Какие ограничения есть у такого объекта?</li></ul><div class="answer-section"><div class="answer-panel" hidden=""><button type="button" class="answer-panel__close" aria-label="Скрыть ответ">×</button><h4 class="answer-panel__heading">18. Зачем нужен Object.create()?</h4><p><code>Object.create()</code> создаёт объект с явно заданным прототипом.</p><h5 class="answer-panel__subheading">Что делает Object.create()?</h5><p><code>Object.create(proto)</code> создаёт объект с <code>[[Prototype]]</code>, равным <code>proto</code>. <code>null</code> создаёт объект без прототипа.</p><h5 class="answer-panel__subheading">Почему объект без Object.prototype иногда полезен?</h5><p>Он удобен как словарь: нет унаследованных ключей вроде <code>toString</code> или <code>constructor</code>.</p><h5 class="answer-panel__subheading">Какие ограничения есть у такого объекта?</h5><p>У него нет методов из <code>Object.prototype</code>, поэтому вместо <code>obj.hasOwnProperty</code> лучше использовать статические проверки.</p></div><button type="button" class="answer-toggle" aria-expanded="false">Ответ</button></div></div></article><article class="question-item" data-kind="question"><button type="button" class="question-item__toggle" aria-expanded="false">
         <span class="question-item__title" data-base-text="19. Как работает instanceof?">19. Как работает instanceof?</span>
         <span class="question-item__chevron" aria-hidden="true"></span>
-    </button><div class="question-item__body"><p class="question-note" data-base-text="Разберём, как устроена проверка через цепочку прототипов.">Разберём, как устроена проверка через цепочку прототипов.</p><ul class="question-list"><li data-base-text="Объяснить механизм проверки.">Объяснить механизм проверки.</li></ul><div class="code-shell"><button type="button" class="copy-btn" aria-label="Скопировать код">
+    </button><div class="question-item__body"><p class="question-note" data-base-text="Разберём, что именно проверяет instanceof и при чём здесь prototype конструктора.">Разберём, что именно проверяет instanceof и при чём здесь prototype конструктора.</p><ul class="question-list"><li data-base-text="Что проверяет instanceof?">Что проверяет instanceof?</li><li data-base-text="Как prototype участвует в проверке?">Как prototype участвует в проверке?</li><li data-base-text="Когда результат может быть неожиданным?">Когда результат может быть неожиданным?</li></ul><div class="answer-section"><div class="answer-panel" hidden=""><button type="button" class="answer-panel__close" aria-label="Скрыть ответ">×</button><h4 class="answer-panel__heading">19. Как работает instanceof?</h4><p><code>instanceof</code> проверяет, есть ли объект из <code>Constructor.prototype</code> в цепочке прототипов проверяемого объекта.</p><h5 class="answer-panel__subheading">Что проверяет instanceof?</h5><p>Он не проверяет имя класса или факт вызова конкретного конструктора. Проверка сводится к обходу цепочки <code>[[Prototype]]</code>: если в ней найден <code>User.prototype</code>, результат будет <code>true</code>.</p><h5 class="answer-panel__subheading">Как prototype участвует в проверке?</h5><p>При <code>new User()</code> новый объект получает ссылку на текущий <code>User.prototype</code>. Поэтому <code>user instanceof User</code> возвращает <code>true</code>, пока этот объект действительно есть в цепочке прототипов.</p><h5 class="answer-panel__subheading">Когда результат может быть неожиданным?</h5><p>Если заменить <code>User.prototype</code> после создания экземпляра, старый объект не начнёт ссылаться на новый prototype автоматически. Также результат может измениться при ручной подмене цепочки через <code>Object.setPrototypeOf()</code> или при работе с объектами из другого JavaScript-контекста.</p><div class="code-shell"><button type="button" class="copy-btn" aria-label="Скопировать код">
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
             <path d="M8 4.75A2.75 2.75 0 0 1 10.75 2h6.5A2.75 2.75 0 0 1 20 4.75v9.5A2.75 2.75 0 0 1 17.25 17h-6.5A2.75 2.75 0 0 1 8 14.25v-9.5Zm2.75-1.25a1.25 1.25 0 0 0-1.25 1.25v9.5c0 .69.56 1.25 1.25 1.25h6.5c.69 0 1.25-.56 1.25-1.25v-9.5c0-.69-.56-1.25-1.25-1.25h-6.5Z"></path>
             <path d="M6.75 6A2.75 2.75 0 0 0 4 8.75v8.5A2.75 2.75 0 0 0 6.75 20h8.5A2.75 2.75 0 0 0 18 17.25V16h-1.5v1.25c0 .69-.56 1.25-1.25 1.25h-8.5c-.69 0-1.25-.56-1.25-1.25v-8.5c0-.69.56-1.25 1.25-1.25H7V6h-.25Z"></path>
@@ -406,92 +547,124 @@ dict<span class="token-operator">.</span>foo <span class="token-operator">=</spa
 
 const user = new User();
 
-console.log(user instanceof User);" data-language="js"><span class="token-keyword">function</span> User<span class="token-operator">(</span><span class="token-operator">)</span> <span class="token-operator">{</span><span class="token-operator">}</span>
+User.prototype = {};
 
-<span class="token-keyword">const</span> user <span class="token-operator">=</span> <span class="token-keyword">new</span> User<span class="token-operator">(</span><span class="token-operator">)</span><span class="token-operator">;</span>
+console.log(user instanceof User); // false" data-language="js">function User() {}
 
-<span class="token-builtins">console</span><span class="token-operator">.</span>log<span class="token-operator">(</span>user <span class="token-keyword">instanceof</span> User<span class="token-operator">)</span><span class="token-operator">;</span></code></pre></div><div class="answer-section"><div class="answer-panel" hidden=""><button type="button" class="answer-panel__close" aria-label="Скрыть ответ">×</button><h4 class="answer-panel__heading">19. Как работает instanceof?</h4><p>`instanceof` проверяет, встречается ли `prototype` конструктора в цепочке прототипов объекта. То есть это не проверка имени класса, а проверка связи в прототипной цепочке.</p><p>Если ответить в одну фразу, это способ понять, создан ли объект через данный конструктор или через его наследников.</p><p>Если в вопросе есть код, лучше отдельно пройтись по порядку выполнения и объяснить, почему результат именно такой. Это помогает показать не только знание термина, но и понимание поведения движка.</p><div class="answer-panel__clarifications"><h5 class="answer-panel__subheading">Объяснить механизм проверки.</h5><p>`instanceof` проверяет, встречается ли прототип конструктора в цепочке прототипов объекта, поэтому это именно проверка связи, а не названия.</p></div></div><button type="button" class="answer-toggle" aria-expanded="false">Ответ</button></div></div></article><article class="question-item" data-kind="question"><button type="button" class="question-item__toggle" aria-expanded="false">
-        <span class="question-item__title" data-base-text="20. Что такое Class?">20. Что такое Class?</span>
+const user = new User();
+
+User.prototype = {};
+
+console.log(user instanceof User); // false</code></pre></div></div><button type="button" class="answer-toggle" aria-expanded="false">Ответ</button></div></div></article><article class="question-item" data-kind="question"><button type="button" class="question-item__toggle" aria-expanded="false">
+        <span class="question-item__title" data-base-text="20. Что такое class в JavaScript?">20. Что такое class в JavaScript?</span>
         <span class="question-item__chevron" aria-hidden="true"></span>
-    </button><div class="question-item__body"><p class="question-note" data-base-text="Посмотрим, как class связан с прототипами и почему это синтаксический сахар.">Посмотрим, как class связан с прототипами и почему это синтаксический сахар.</p><ul class="question-list"><li data-base-text="Почему это синтаксический сахар?">Почему это синтаксический сахар?</li><li data-base-text="Во что превращается класс?">Во что превращается класс?</li></ul><div class="code-shell"><button type="button" class="copy-btn" aria-label="Скопировать код">
+    </button><div class="question-item__body"><p class="question-note" data-base-text="Посмотрим, как class связан с прототипами и почему это синтаксический сахар.">Посмотрим, как class связан с прототипами и почему это синтаксический сахар.</p><div class="code-shell"><button type="button" class="copy-btn" aria-label="Скопировать код">
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
             <path d="M8 4.75A2.75 2.75 0 0 1 10.75 2h6.5A2.75 2.75 0 0 1 20 4.75v9.5A2.75 2.75 0 0 1 17.25 17h-6.5A2.75 2.75 0 0 1 8 14.25v-9.5Zm2.75-1.25a1.25 1.25 0 0 0-1.25 1.25v9.5c0 .69.56 1.25 1.25 1.25h6.5c.69 0 1.25-.56 1.25-1.25v-9.5c0-.69-.56-1.25-1.25-1.25h-6.5Z"></path>
             <path d="M6.75 6A2.75 2.75 0 0 0 4 8.75v8.5A2.75 2.75 0 0 0 6.75 20h8.5A2.75 2.75 0 0 0 18 17.25V16h-1.5v1.25c0 .69-.56 1.25-1.25 1.25h-8.5c-.69 0-1.25-.56-1.25-1.25v-8.5c0-.69.56-1.25 1.25-1.25H7V6h-.25Z"></path>
         </svg>
     </button><pre class="code-block"><code data-raw="class Animal {
-        speak() {
-                return &quot;hi&quot;;
-        }
+    speak() {
+        console.log(&quot;sound&quot;);
+    }
 }
 
-class Dog extends Animal {}" data-language="js"><span class="token-keyword">class</span> Animal <span class="token-operator">{</span>
-        speak<span class="token-operator">(</span><span class="token-operator">)</span> <span class="token-operator">{</span>
-                <span class="token-keyword">return</span> <span class="token-string">"hi"</span><span class="token-operator">;</span>
-        <span class="token-operator">}</span>
-<span class="token-operator">}</span>
+class Dog extends Animal {}
 
-<span class="token-keyword">class</span> Dog <span class="token-keyword">extends</span> Animal <span class="token-operator">{</span><span class="token-operator">}</span></code></pre></div><div class="answer-section"><div class="answer-panel" hidden=""><button type="button" class="answer-panel__close" aria-label="Скрыть ответ">×</button><h4 class="answer-panel__heading">20. Что такое Class?</h4><p>`class` в JavaScript — это более удобный синтаксис поверх прототипной модели. За знакомым внешним видом всё равно стоят функции-конструкторы, `prototype` и обычная цепочка прототипов.</p><p>На собеседовании важно подчеркнуть, что класс не отменяет прототипы, а лишь делает запись и чтение такого кода более удобными.</p><p>Если в вопросе есть код, лучше отдельно пройтись по порядку выполнения и объяснить, почему результат именно такой. Это помогает показать не только знание термина, но и понимание поведения движка.</p><div class="answer-panel__clarifications"><h5 class="answer-panel__subheading">Почему это синтаксический сахар?</h5><p>Потому что `class` не вводит новую объектную модель, а лишь упрощает запись уже существующей прототипной схемы.</p><h5 class="answer-panel__subheading">Во что превращается класс?</h5><p>Под капотом всё сводится к функциям, прототипам и методам на `prototype`, просто запись становится более читаемой.</p></div></div><button type="button" class="answer-toggle" aria-expanded="false">Ответ</button></div></div></article></div></section><section class="section-card" id="dom"><div class="section-head"><div><h2 class="section-title" data-base-text="DOM">DOM</h2><p class="section-summary" data-base-text="Финальный тематический блок про дерево документа, всплытие событий и производительность при работе со страницей.">Финальный тематический блок про дерево документа, всплытие событий и производительность при работе со страницей.</p></div></div><div class="cards"><article class="question-item" data-kind="question"><button type="button" class="question-item__toggle" aria-expanded="false">
+const dog = new Dog();
+dog.speak();" data-language="js">class Animal {
+    speak() {
+        console.log(&quot;sound&quot;);
+    }
+}
+
+class Dog extends Animal {}
+
+const dog = new Dog();
+dog.speak();</code></pre></div><ul class="question-list"><li data-base-text="Почему class называют синтаксическим сахаром?">Почему class называют синтаксическим сахаром?</li><li data-base-text="Где хранятся методы класса?">Где хранятся методы класса?</li><li data-base-text="Как работает extends?">Как работает extends?</li></ul><div class="answer-section"><div class="answer-panel" hidden=""><button type="button" class="answer-panel__close" aria-label="Скрыть ответ">×</button><h4 class="answer-panel__heading">20. Что такое class в JavaScript?</h4><p><code>class</code> — удобный синтаксис поверх прототипной модели JavaScript.</p><h5 class="answer-panel__subheading">Почему class называют синтаксическим сахаром?</h5><p>Потому что <code>class</code> не меняет модель объектов, а только упрощает запись конструктора, методов и наследования.</p><h5 class="answer-panel__subheading">Где хранятся методы класса?</h5><p>Обычные методы лежат в <code>ClassName.prototype</code> и находятся экземплярами через цепочку прототипов.</p><h5 class="answer-panel__subheading">Как работает extends?</h5><p><code>extends</code> связывает прототипы классов, поэтому <code>Dog</code> находит методы из <code>Animal.prototype</code>.</p></div><button type="button" class="answer-toggle" aria-expanded="false">Ответ</button></div></div></article></div></section><section class="section-card" id="dom"><div class="section-head"><div><h2 class="section-title" data-base-text="DOM">DOM</h2><p class="section-summary" data-base-text="Финальный тематический блок про дерево документа, события и производительность при работе со страницей.">Финальный тематический блок про дерево документа, события и производительность при работе со страницей.</p></div></div><div class="cards"><article class="question-item" data-kind="question"><button type="button" class="question-item__toggle" aria-expanded="false">
         <span class="question-item__title" data-base-text="21. Что такое DOM?">21. Что такое DOM?</span>
         <span class="question-item__chevron" aria-hidden="true"></span>
-    </button><div class="question-item__body"><p class="question-note" data-base-text="Разберём, что такое DOM-дерево, где оно живёт и кто его создаёт.">Разберём, что такое DOM-дерево, где оно живёт и кто его создаёт.</p><ul class="question-list"><li data-base-text="Где он хранится?">Где он хранится?</li><li data-base-text="Кто его создает?">Кто его создает?</li></ul><div class="answer-section"><div class="answer-panel" hidden=""><button type="button" class="answer-panel__close" aria-label="Скрыть ответ">×</button><h4 class="answer-panel__heading">21. Что такое DOM?</h4><p>DOM — это объектная модель документа, то есть дерево узлов, через которое JavaScript и браузер работают со структурой страницы.</p><p>В ответе стоит упомянуть, что DOM живёт отдельно от исходного HTML: браузер сначала строит дерево, а затем уже позволяет им управлять через API.</p><div class="answer-panel__clarifications"><h5 class="answer-panel__subheading">Где он хранится?</h5><p>DOM хранится в памяти браузера как дерево узлов, а не в исходном HTML-файле как текст.</p><h5 class="answer-panel__subheading">Кто его создает?</h5><p>Его создаёт браузер при разборе HTML и построении DOM-дерева.</p></div></div><button type="button" class="answer-toggle" aria-expanded="false">Ответ</button></div></div></article><article class="question-item" data-kind="question"><button type="button" class="question-item__toggle" aria-expanded="false">
-        <span class="question-item__title" data-base-text="22. Как работает Event Bubbling?">22. Как работает Event Bubbling?</span>
+    </button><div class="question-item__body"><p class="question-note" data-base-text="Разберём, как HTML превращается в дерево объектов, с которым работает JavaScript.">Разберём, как HTML превращается в дерево объектов, с которым работает JavaScript.</p><ul class="question-list"><li data-base-text="Что такое DOM-дерево?">Что такое DOM-дерево?</li><li data-base-text="Где хранится DOM?">Где хранится DOM?</li><li data-base-text="Кто создаёт DOM?">Кто создаёт DOM?</li></ul><div class="answer-section"><div class="answer-panel" hidden=""><button type="button" class="answer-panel__close" aria-label="Скрыть ответ">×</button><h4 class="answer-panel__heading">21. Что такое DOM?</h4><p><code>DOM</code> — объектная модель документа: дерево объектов, созданное браузером из HTML.</p><h5 class="answer-panel__subheading">Что такое DOM-дерево?</h5><p>DOM-дерево состоит из узлов: документа, элементов, текста и комментариев. Связи повторяют вложенность HTML.</p><h5 class="answer-panel__subheading">Где хранится DOM?</h5><p>DOM хранится в памяти браузера. Это не HTML-файл, а текущее представление страницы.</p><h5 class="answer-panel__subheading">Кто создаёт DOM?</h5><p>DOM создаёт браузер при парсинге HTML. JavaScript потом меняет его через DOM API.</p></div><button type="button" class="answer-toggle" aria-expanded="false">Ответ</button></div></div></article><article class="question-item" data-kind="question"><button type="button" class="question-item__toggle" aria-expanded="false">
+        <span class="question-item__title" data-base-text="22. Как работает всплытие события?">22. Как работает всплытие события?</span>
         <span class="question-item__chevron" aria-hidden="true"></span>
-    </button><div class="question-item__body"><p class="question-note" data-base-text="Посмотрим, как событие идёт вверх по дереву и когда нужен capturing.">Посмотрим, как событие идёт вверх по дереву и когда нужен capturing.</p><ul class="question-list"><li data-base-text="Что такое Capturing?">Что такое Capturing?</li><li data-base-text="Когда он используется?">Когда он используется?</li></ul><div class="code-shell"><button type="button" class="copy-btn" aria-label="Скопировать код">
+    </button><div class="question-item__body"><p class="question-note" data-base-text="Посмотрим, как событие поднимается вверх по дереву и когда нужен захват события.">Посмотрим, как событие поднимается вверх по дереву и когда нужен захват события.</p><div class="code-shell"><button type="button" class="copy-btn" aria-label="Скопировать код">
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
             <path d="M8 4.75A2.75 2.75 0 0 1 10.75 2h6.5A2.75 2.75 0 0 1 20 4.75v9.5A2.75 2.75 0 0 1 17.25 17h-6.5A2.75 2.75 0 0 1 8 14.25v-9.5Zm2.75-1.25a1.25 1.25 0 0 0-1.25 1.25v9.5c0 .69.56 1.25 1.25 1.25h6.5c.69 0 1.25-.56 1.25-1.25v-9.5c0-.69-.56-1.25-1.25-1.25h-6.5Z"></path>
             <path d="M6.75 6A2.75 2.75 0 0 0 4 8.75v8.5A2.75 2.75 0 0 0 6.75 20h8.5A2.75 2.75 0 0 0 18 17.25V16h-1.5v1.25c0 .69-.56 1.25-1.25 1.25h-8.5c-.69 0-1.25-.56-1.25-1.25v-8.5c0-.69.56-1.25 1.25-1.25H7V6h-.25Z"></path>
         </svg>
-    </button><pre class="code-block"><code data-raw="&lt;div class=&quot;outer&quot;&gt;
-        &lt;button class=&quot;inner&quot;&gt;Click&lt;/button&gt;
-&lt;/div&gt;" data-language="html"><span class="token-tag">&lt;div</span> <span class="token-attr">class</span>=<span class="token-string">"outer"</span><span class="token-operator">&gt;</span>
-        <span class="token-tag">&lt;button</span> <span class="token-attr">class</span>=<span class="token-string">"inner"</span><span class="token-operator">&gt;</span><span class="token-attr">Click</span><span class="token-tag">&lt;/button</span><span class="token-operator">&gt;</span>
-<span class="token-tag">&lt;/div</span><span class="token-operator">&gt;</span></code></pre></div><div class="answer-section"><div class="answer-panel" hidden=""><button type="button" class="answer-panel__close" aria-label="Скрыть ответ">×</button><h4 class="answer-panel__heading">22. Как работает Event Bubbling?</h4><p>Всплытие события означает, что событие после срабатывания на целевом элементе поднимается вверх по дереву к родителям. Capturing — обратная фаза, когда событие идёт сверху вниз к цели.</p><p>Если объяснять практично, то всплытие и capturing нужны, чтобы управлять тем, где именно перехватывать событие и как строить обработчики на разных уровнях дерева.</p><p>Если в вопросе есть код, лучше отдельно пройтись по порядку выполнения и объяснить, почему результат именно такой. Это помогает показать не только знание термина, но и понимание поведения движка.</p><div class="answer-panel__clarifications"><h5 class="answer-panel__subheading">Что такое Capturing?</h5><p>Capturing — это фаза, когда событие идёт от корня дерева к целевому элементу.</p><h5 class="answer-panel__subheading">Когда он используется?</h5><p>Capturing используют, когда важно поймать событие до того, как оно дойдёт до цели, или когда нужно отдельно обработать верхнюю часть дерева.</p></div></div><button type="button" class="answer-toggle" aria-expanded="false">Ответ</button></div></div></article><article class="question-item" data-kind="question"><button type="button" class="question-item__toggle" aria-expanded="false">
+    </button><pre class="code-block"><code data-raw="button.addEventListener(&quot;click&quot;, () =&gt; {
+    console.log(&quot;button&quot;);
+});
+
+document.body.addEventListener(&quot;click&quot;, () =&gt; {
+    console.log(&quot;body&quot;);
+});" data-language="js">button.addEventListener(&quot;click&quot;, () =&gt; {
+    console.log(&quot;button&quot;);
+});
+
+document.body.addEventListener(&quot;click&quot;, () =&gt; {
+    console.log(&quot;body&quot;);
+});</code></pre></div><ul class="question-list"><li data-base-text="В каком порядке сработают обработчики?">В каком порядке сработают обработчики?</li><li data-base-text="Что такое захват события?">Что такое захват события?</li><li data-base-text="Как остановить всплытие?">Как остановить всплытие?</li></ul><div class="answer-section"><div class="answer-panel" hidden=""><button type="button" class="answer-panel__close" aria-label="Скрыть ответ">×</button><h4 class="answer-panel__heading">22. Как работает всплытие события?</h4><p>Когда в DOM происходит событие, оно доходит до целевого элемента, а затем может пройти обратно вверх по дереву. Эта обратная фаза называется всплытием события.</p><p>Например, если кликнуть по вложенной кнопке, событие сначала попадёт в обработчик самой кнопки, затем поднимется к её родителю, потом к следующим родителям выше по DOM-дереву.</p><h5 class="answer-panel__subheading">В каком порядке сработают обработчики?</h5><p>В текущем примере при клике по кнопке сначала выполнится обработчик кнопки и выведет <code>button</code>. После этого событие всплывёт до <code>document.body</code>, и второй обработчик выведет <code>body</code>.</p><p>Итоговый порядок вывода: <code>button</code>, затем <code>body</code>.</p><h5 class="answer-panel__subheading">Что такое захват события?</h5><p>Захват события — это фаза до достижения целевого элемента: событие идёт сверху вниз, от документа к цели. Её включают через <code>{ capture: true }</code>.</p><p>В примере обработчик на <code>document.body</code> сработает до обработчика кнопки, потому что он выполняется на фазе захвата.</p><div class="code-shell"><button type="button" class="copy-btn" aria-label="Скопировать код">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M8 4.75A2.75 2.75 0 0 1 10.75 2h6.5A2.75 2.75 0 0 1 20 4.75v9.5A2.75 2.75 0 0 1 17.25 17h-6.5A2.75 2.75 0 0 1 8 14.25v-9.5Zm2.75-1.25a1.25 1.25 0 0 0-1.25 1.25v9.5c0 .69.56 1.25 1.25 1.25h6.5c.69 0 1.25-.56 1.25-1.25v-9.5c0-.69-.56-1.25-1.25-1.25h-6.5Z"></path>
+            <path d="M6.75 6A2.75 2.75 0 0 0 4 8.75v8.5A2.75 2.75 0 0 0 6.75 20h8.5A2.75 2.75 0 0 0 18 17.25V16h-1.5v1.25c0 .69-.56 1.25-1.25 1.25h-8.5c-.69 0-1.25-.56-1.25-1.25v-8.5c0-.69.56-1.25 1.25-1.25H7V6h-.25Z"></path>
+        </svg>
+    </button><pre class="code-block"><code data-raw="document.body.addEventListener(&quot;click&quot;, () =&gt; {
+    console.log(&quot;body capture&quot;);
+}, { capture: true });
+
+button.addEventListener(&quot;click&quot;, () =&gt; {
+    console.log(&quot;button&quot;);
+});
+
+// body capture
+// button" data-language="js">document.body.addEventListener(&quot;click&quot;, () =&gt; {
+    console.log(&quot;body capture&quot;);
+}, { capture: true });
+
+button.addEventListener(&quot;click&quot;, () =&gt; {
+    console.log(&quot;button&quot;);
+});
+
+// body capture
+// button</code></pre></div><p>На практике захват используют реже, чем всплытие. Он полезен, когда родительскому элементу нужно увидеть событие раньше дочерних обработчиков: например, для раннего логирования, глобальной проверки клика, перехвата события до стороннего виджета или работы с событиями, которые плохо подходят для обычного всплытия.</p><p>Для большинства UI-задач чаще выбирают всплытие и делегирование событий, потому что такая модель проще читается и лучше подходит для динамических элементов.</p><h5 class="answer-panel__subheading">Как остановить всплытие?</h5><p><code>event.stopPropagation()</code> останавливает дальнейшее движение события по дереву. Если вызвать его в обработчике кнопки, обработчик на <code>document.body</code> уже не сработает.</p><p>Это полезно, когда вложенный элемент должен обработать событие сам и не запускать логику родителя. Например, клик по кнопке внутри карточки не должен открывать всю карточку, клик внутри модального окна не должен закрывать оверлей, а действие внутри dropdown не должно срабатывать как внешний клик.</p><p>Использовать это стоит аккуратно: остановка всплытия может сломать делегирование событий и общие обработчики выше по дереву.</p></div><button type="button" class="answer-toggle" aria-expanded="false">Ответ</button></div></div></article><article class="question-item" data-kind="question"><button type="button" class="question-item__toggle" aria-expanded="false">
         <span class="question-item__title" data-base-text="23. Как работает делегирование событий?">23. Как работает делегирование событий?</span>
         <span class="question-item__chevron" aria-hidden="true"></span>
-    </button><div class="question-item__body"><p class="question-note" data-base-text="Разберём, как повесить один обработчик на родителя вместо сотен на каждый элемент.">Разберём, как повесить один обработчик на родителя вместо сотен на каждый элемент.</p><ul class="question-list"><li data-base-text="Как обработать клики?">Как обработать клики?</li><li data-base-text="Почему это быстрее?">Почему это быстрее?</li><li data-base-text="Какие ограничения?">Какие ограничения?</li></ul><div class="code-shell"><button type="button" class="copy-btn" aria-label="Скопировать код">
+    </button><div class="question-item__body"><p class="question-note" data-base-text="Разберём, как один обработчик на родителе может заменить множество обработчиков на дочерних элементах.">Разберём, как один обработчик на родителе может заменить множество обработчиков на дочерних элементах.</p><div class="code-shell"><button type="button" class="copy-btn" aria-label="Скопировать код">
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
             <path d="M8 4.75A2.75 2.75 0 0 1 10.75 2h6.5A2.75 2.75 0 0 1 20 4.75v9.5A2.75 2.75 0 0 1 17.25 17h-6.5A2.75 2.75 0 0 1 8 14.25v-9.5Zm2.75-1.25a1.25 1.25 0 0 0-1.25 1.25v9.5c0 .69.56 1.25 1.25 1.25h6.5c.69 0 1.25-.56 1.25-1.25v-9.5c0-.69-.56-1.25-1.25-1.25h-6.5Z"></path>
             <path d="M6.75 6A2.75 2.75 0 0 0 4 8.75v8.5A2.75 2.75 0 0 0 6.75 20h8.5A2.75 2.75 0 0 0 18 17.25V16h-1.5v1.25c0 .69-.56 1.25-1.25 1.25h-8.5c-.69 0-1.25-.56-1.25-1.25v-8.5c0-.69.56-1.25 1.25-1.25H7V6h-.25Z"></path>
         </svg>
     </button><pre class="code-block"><code data-raw="list.addEventListener(&quot;click&quot;, (event) =&gt; {
-        const item = event.target.closest(&quot;li&quot;);
+    const item = event.target.closest(&quot;li&quot;);
 
-        if (!item) return;
-});" data-language="js">list<span class="token-operator">.</span>addEventListener<span class="token-operator">(</span><span class="token-string">"click"</span><span class="token-operator">,</span> <span class="token-operator">(</span>event<span class="token-operator">)</span> <span class="token-operator">=&gt;</span> <span class="token-operator">{</span>
-        <span class="token-keyword">const</span> item <span class="token-operator">=</span> event<span class="token-operator">.</span>target<span class="token-operator">.</span>closest<span class="token-operator">(</span><span class="token-string">"li"</span><span class="token-operator">)</span><span class="token-operator">;</span>
+    if (!item) return;
 
-        <span class="token-keyword">if</span> <span class="token-operator">(</span><span class="token-operator">!</span>item<span class="token-operator">)</span> <span class="token-keyword">return</span><span class="token-operator">;</span>
-<span class="token-operator">}</span><span class="token-operator">)</span><span class="token-operator">;</span></code></pre></div><div class="answer-section"><div class="answer-panel" hidden=""><button type="button" class="answer-panel__close" aria-label="Скрыть ответ">×</button><h4 class="answer-panel__heading">23. Как работает делегирование событий?</h4><p>Делегирование событий работает за счёт всплытия: один обработчик вешают на родителя, а внутри определяют нужный дочерний элемент через `event.target` и `closest()`.</p><p>Это экономит обработчики, упрощает динамический DOM и обычно делает код заметно чище.</p><p>Если в вопросе есть код, лучше отдельно пройтись по порядку выполнения и объяснить, почему результат именно такой. Это помогает показать не только знание термина, но и понимание поведения движка.</p><div class="answer-panel__clarifications"><h5 class="answer-panel__subheading">Как обработать клики?</h5><p>Нужно брать `event.target`, подниматься к нужному элементу через `closest()` и уже на нём выполнять нужную логику.</p><h5 class="answer-panel__subheading">Почему это быстрее?</h5><p>Потому что вместо сотен отдельных обработчиков на каждый элемент остаётся один обработчик на родителе.</p><h5 class="answer-panel__subheading">Какие ограничения?</h5><p>Нужно учитывать, что обработчик работает через всплытие, и не каждый тип события удобно делегировать.</p></div></div><button type="button" class="answer-toggle" aria-expanded="false">Ответ</button></div></div></article><article class="question-item" data-kind="question"><button type="button" class="question-item__toggle" aria-expanded="false">
+    console.log(item.dataset.id);
+});" data-language="js">list.addEventListener(&quot;click&quot;, (event) =&gt; {
+    const item = event.target.closest(&quot;li&quot;);
+
+    if (!item) return;
+
+    console.log(item.dataset.id);
+});</code></pre></div><ul class="question-list"><li data-base-text="Как понять, по какому элементу кликнули?">Как понять, по какому элементу кликнули?</li><li data-base-text="Почему это удобнее и часто быстрее?">Почему это удобнее и часто быстрее?</li><li data-base-text="Какие ограничения есть у делегирования?">Какие ограничения есть у делегирования?</li></ul><div class="answer-section"><div class="answer-panel" hidden=""><button type="button" class="answer-panel__close" aria-label="Скрыть ответ">×</button><h4 class="answer-panel__heading">23. Как работает делегирование событий?</h4><p>Делегирование — это один обработчик на родителе вместо обработчиков на каждом дочернем элементе.</p><h5 class="answer-panel__subheading">Как понять, по какому элементу кликнули?</h5><p>Берём <code>event.target</code> и ищем нужный элемент через <code>closest()</code>. Если его нет, выходим.</p><h5 class="answer-panel__subheading">Почему это удобнее и часто быстрее?</h5><p>Один обработчик проще поддерживать, и он работает даже для элементов, добавленных позже.</p><h5 class="answer-panel__subheading">Какие ограничения есть у делегирования?</h5><p>Делегирование работает через всплытие, поэтому оно плохо подходит для событий, которые не всплывают или ведут себя нестандартно. Например, <code>focus</code> и <code>blur</code> не всплывают как обычный <code>click</code>; для них чаще используют <code>focusin</code> и <code>focusout</code>.</p><p>Нужно аккуратно проверять границы контейнера. <code>event.target.closest("li")</code> может найти элемент выше или вне ожидаемой области, если не проверить, что найденный элемент действительно принадлежит текущему списку.</p><p>Ещё одно ограничение — вложенные интерактивные элементы. Например, клик по кнопке внутри карточки может одновременно запустить обработчик кнопки и обработчик карточки, если не разделить сценарии или не остановить всплытие там, где это оправдано.</p></div><button type="button" class="answer-toggle" aria-expanded="false">Ответ</button></div></div></article><article class="question-item" data-kind="question"><button type="button" class="question-item__toggle" aria-expanded="false">
         <span class="question-item__title" data-base-text="24. Когда нужен MutationObserver?">24. Когда нужен MutationObserver?</span>
         <span class="question-item__chevron" aria-hidden="true"></span>
-    </button><div class="question-item__body"><p class="question-note" data-base-text="Посмотрим, когда обычных событий уже не хватает.">Посмотрим, когда обычных событий уже не хватает.</p><ul class="question-list"><li data-base-text="Когда обычных событий уже недостаточно?">Когда обычных событий уже недостаточно?</li></ul><div class="code-shell"><button type="button" class="copy-btn" aria-label="Скопировать код">
-        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-            <path d="M8 4.75A2.75 2.75 0 0 1 10.75 2h6.5A2.75 2.75 0 0 1 20 4.75v9.5A2.75 2.75 0 0 1 17.25 17h-6.5A2.75 2.75 0 0 1 8 14.25v-9.5Zm2.75-1.25a1.25 1.25 0 0 0-1.25 1.25v9.5c0 .69.56 1.25 1.25 1.25h6.5c.69 0 1.25-.56 1.25-1.25v-9.5c0-.69-.56-1.25-1.25-1.25h-6.5Z"></path>
-            <path d="M6.75 6A2.75 2.75 0 0 0 4 8.75v8.5A2.75 2.75 0 0 0 6.75 20h8.5A2.75 2.75 0 0 0 18 17.25V16h-1.5v1.25c0 .69-.56 1.25-1.25 1.25h-8.5c-.69 0-1.25-.56-1.25-1.25v-8.5c0-.69.56-1.25 1.25-1.25H7V6h-.25Z"></path>
-        </svg>
-    </button><pre class="code-block"><code data-raw="const observer = new MutationObserver(() =&gt; {});
-
-observer.observe(node, {
-        childList: true,
-        subtree: true,
-});" data-language="js"><span class="token-keyword">const</span> observer <span class="token-operator">=</span> <span class="token-keyword">new</span> <span class="token-builtins">MutationObserver</span><span class="token-operator">(</span><span class="token-operator">(</span><span class="token-operator">)</span> <span class="token-operator">=&gt;</span> <span class="token-operator">{</span><span class="token-operator">}</span><span class="token-operator">)</span><span class="token-operator">;</span>
-
-observer<span class="token-operator">.</span>observe<span class="token-operator">(</span>node<span class="token-operator">,</span> <span class="token-operator">{</span>
-        childList<span class="token-operator">:</span> true<span class="token-operator">,</span>
-        subtree<span class="token-operator">:</span> true<span class="token-operator">,</span>
-<span class="token-operator">}</span><span class="token-operator">)</span><span class="token-operator">;</span></code></pre></div><div class="answer-section"><div class="answer-panel" hidden=""><button type="button" class="answer-panel__close" aria-label="Скрыть ответ">×</button><h4 class="answer-panel__heading">24. Когда нужен MutationObserver?</h4><p>MutationObserver нужен, когда важно отслеживать изменения в DOM: добавление, удаление или изменение узлов. Это удобный способ реагировать на такие события асинхронно.</p><p>Если отвечать коротко, то это инструмент для наблюдения за мутациями дерева документа, когда обычных событий уже недостаточно.</p><p>Если в вопросе есть код, лучше отдельно пройтись по порядку выполнения и объяснить, почему результат именно такой. Это помогает показать не только знание термина, но и понимание поведения движка.</p><div class="answer-panel__clarifications"><h5 class="answer-panel__subheading">Когда обычных событий уже недостаточно?</h5><p>Когда нужно отлавливать структурные изменения DOM, а не только действия пользователя или стандартные события браузера.</p></div></div><button type="button" class="answer-toggle" aria-expanded="false">Ответ</button></div></div></article><article class="question-item" data-kind="question"><button type="button" class="question-item__toggle" aria-expanded="false">
+    </button><div class="question-item__body"><p class="question-note" data-base-text="Посмотрим, как отследить изменения DOM, которые не являются обычными пользовательскими событиями.">Посмотрим, как отследить изменения DOM, которые не являются обычными пользовательскими событиями.</p><ul class="question-list"><li data-base-text="В каких случаях MutationObserver полезен?">В каких случаях MutationObserver полезен?</li><li data-base-text="Что приходит в callback?">Что приходит в callback?</li><li data-base-text="Почему это не обычное событие?">Почему это не обычное событие?</li></ul><div class="answer-section"><div class="answer-panel" hidden=""><button type="button" class="answer-panel__close" aria-label="Скрыть ответ">×</button><h4 class="answer-panel__heading">24. Когда нужен MutationObserver?</h4><p><code>MutationObserver</code> нужен, когда нужно отследить изменения DOM, которые не являются обычными пользовательскими событиями: добавление или удаление узлов, изменение атрибутов, текста или вложенного дерева.</p><p>Это не замена <code>click</code>, <code>input</code> или другим событиям пользователя. Observer полезен именно тогда, когда важно узнать, что DOM уже изменился.</p><h5 class="answer-panel__subheading">В каких случаях MutationObserver полезен?</h5><p>Он помогает, когда DOM меняет не твой прямой обработчик, а сторонний виджет, редактор, расширение, асинхронно загруженный компонент или код, к которому нет удобной точки подключения.</p><p>Например, можно отследить появление элемента в контейнере, изменение атрибута, вставку новых сообщений в чат или перерисовку части страницы сторонней библиотекой.</p><h5 class="answer-panel__subheading">Что приходит в callback?</h5><p>В callback приходит массив <code>MutationRecord</code>. В каждой записи есть тип изменения, например <code>childList</code>, <code>attributes</code> или <code>characterData</code>, а также добавленные и удалённые узлы, имя изменённого атрибута и ссылка на изменённый target.</p><p>Callback <code>MutationObserver</code> выполняется как микрозадача: браузер не вызывает его синхронно на каждое изменение, а собирает изменения и вызывает callback после текущего синхронного кода, до перехода к следующей задаче.</p><h5 class="answer-panel__subheading">Почему это не обычное событие?</h5><p>Обычное событие описывает действие или сигнал: клик, ввод, загрузку, фокус. <code>MutationObserver</code> сообщает не о причине, а о результате — DOM изменился.</p><p>Из-за этого observer лучше использовать точечно. Если наблюдать слишком большой subtree или делать тяжёлую работу в callback, можно получить лишнюю нагрузку на страницу.</p></div><button type="button" class="answer-toggle" aria-expanded="false">Ответ</button></div></div></article><article class="question-item" data-kind="question"><button type="button" class="question-item__toggle" aria-expanded="false">
         <span class="question-item__title" data-base-text="25. Что такое Reflow / Repaint и почему это важно?">25. Что такое Reflow / Repaint и почему это важно?</span>
         <span class="question-item__chevron" aria-hidden="true"></span>
-    </button><div class="question-item__body"><p class="question-note" data-base-text="Разберём, почему чтение размеров и изменения DOM могут тормозить страницу.">Разберём, почему чтение размеров и изменения DOM могут тормозить страницу.</p><ul class="question-list"><li data-base-text="Почему чтение offsetHeight внутри цикла сильно замедляет страницу?">Почему чтение offsetHeight внутри цикла сильно замедляет страницу?</li></ul><div class="code-shell"><button type="button" class="copy-btn" aria-label="Скопировать код">
+    </button><div class="question-item__body"><p class="question-note" data-base-text="Разберём, почему чтение размеров и изменения DOM могут тормозить страницу.">Разберём, почему чтение размеров и изменения DOM могут тормозить страницу.</p><div class="code-shell"><button type="button" class="copy-btn" aria-label="Скопировать код">
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
             <path d="M8 4.75A2.75 2.75 0 0 1 10.75 2h6.5A2.75 2.75 0 0 1 20 4.75v9.5A2.75 2.75 0 0 1 17.25 17h-6.5A2.75 2.75 0 0 1 8 14.25v-9.5Zm2.75-1.25a1.25 1.25 0 0 0-1.25 1.25v9.5c0 .69.56 1.25 1.25 1.25h6.5c.69 0 1.25-.56 1.25-1.25v-9.5c0-.69-.56-1.25-1.25-1.25h-6.5Z"></path>
             <path d="M6.75 6A2.75 2.75 0 0 0 4 8.75v8.5A2.75 2.75 0 0 0 6.75 20h8.5A2.75 2.75 0 0 0 18 17.25V16h-1.5v1.25c0 .69-.56 1.25-1.25 1.25h-8.5c-.69 0-1.25-.56-1.25-1.25v-8.5c0-.69.56-1.25 1.25-1.25H7V6h-.25Z"></path>
         </svg>
     </button><pre class="code-block"><code data-raw="for (const el of items) {
-        console.log(el.offsetHeight);
-}" data-language="js"><span class="token-keyword">for</span> <span class="token-operator">(</span><span class="token-keyword">const</span> el <span class="token-keyword">of</span> items<span class="token-operator">)</span> <span class="token-operator">{</span>
-        <span class="token-builtins">console</span><span class="token-operator">.</span>log<span class="token-operator">(</span>el<span class="token-operator">.</span>offsetHeight<span class="token-operator">)</span><span class="token-operator">;</span>
-<span class="token-operator">}</span></code></pre></div><div class="answer-section"><div class="answer-panel" hidden=""><button type="button" class="answer-panel__close" aria-label="Скрыть ответ">×</button><h4 class="answer-panel__heading">25. Что такое Reflow / Repaint и почему это важно?</h4><p>Reflow и repaint важны, потому что они показывают, сколько работы браузеру приходится делать при изменении геометрии и визуального представления элементов.</p><p>Если часто чередовать чтение layout-свойств и запись в DOM, браузер может постоянно пересчитывать страницу, и это сильно бьёт по производительности.</p><p>Если в вопросе есть код, лучше отдельно пройтись по порядку выполнения и объяснить, почему результат именно такой. Это помогает показать не только знание термина, но и понимание поведения движка.</p><div class="answer-panel__clarifications"><h5 class="answer-panel__subheading">Почему чтение offsetHeight внутри цикла сильно замедляет страницу?</h5><p>Потому что браузер может каждый раз вынужденно пересчитывать layout, если в цикле смешаны чтение размеров и изменение DOM.</p></div></div><button type="button" class="answer-toggle" aria-expanded="false">Ответ</button></div></div></article></div></section><section class="section-card" id="final"><div class="section-head"><div><h2 class="section-title" data-base-text="Дополнительные вопросы">Дополнительные вопросы</h2><p class="section-summary" data-base-text="Короткие вопросы на общий уровень, системное мышление и практический опыт.">Короткие вопросы на общий уровень, системное мышление и практический опыт.</p></div></div><div class="cards"><article class="question-item" data-kind="question"><button type="button" class="question-item__toggle" aria-expanded="false">
+    el.classList.add(&quot;active&quot;);
+    console.log(el.offsetHeight);
+}" data-language="js">for (const el of items) {
+    el.classList.add(&quot;active&quot;);
+    console.log(el.offsetHeight);
+}</code></pre></div><ul class="question-list"><li data-base-text="Чем reflow отличается от repaint?">Чем reflow отличается от repaint?</li><li data-base-text="Почему чтение offsetHeight внутри цикла может замедлить страницу?">Почему чтение offsetHeight внутри цикла может замедлить страницу?</li><li data-base-text="Как уменьшить лишние пересчёты layout?">Как уменьшить лишние пересчёты layout?</li></ul><div class="answer-section"><div class="answer-panel" hidden=""><button type="button" class="answer-panel__close" aria-label="Скрыть ответ">×</button><h4 class="answer-panel__heading">25. Что такое Reflow / Repaint и почему это важно?</h4><p><code>Reflow</code> и <code>Repaint</code> — этапы обновления страницы после изменений DOM, CSS или размеров окна. Они важны, потому что могут быть дорогими: браузеру приходится пересчитывать layout и заново рисовать элементы.</p><h5 class="answer-panel__subheading">Чем reflow отличается от repaint?</h5><p><code>Reflow</code> — это пересчёт геометрии страницы: размеров, координат, положения элементов и влияния одних элементов на другие. Его вызывают изменения вроде ширины, высоты, шрифта, добавления узла или изменения классов, влияющих на layout.</p><p><code>Repaint</code> — это перерисовка внешнего вида без обязательного пересчёта геометрии. Например, изменение цвета текста или фона обычно требует repaint, но не всегда требует reflow.</p><h5 class="answer-panel__subheading">Почему чтение offsetHeight внутри цикла может замедлить страницу?</h5><p>Если сначала изменить DOM или классы, а затем сразу прочитать layout-свойство вроде <code>offsetHeight</code>, <code>offsetWidth</code> или <code>getBoundingClientRect()</code>, браузер может принудительно пересчитать layout, чтобы вернуть актуальное значение.</p><p>В цикле это особенно плохо: каждая итерация может чередовать запись и чтение, вызывая серию forced reflow. Такой паттерн часто называют layout thrashing.</p><h5 class="answer-panel__subheading">Как уменьшить лишние пересчёты layout?</h5><p>Главное правило — группировать операции: сначала сделать все чтения размеров, потом все записи в DOM. Не стоит в одном цикле постоянно менять класс и сразу читать <code>offsetHeight</code>.</p><p>Также помогают CSS-классы вместо множества inline-изменений, пакетные DOM-операции, <code>requestAnimationFrame</code> для визуальных обновлений и уменьшение области изменений, чтобы браузеру не приходилось пересчитывать большую часть страницы.</p></div><button type="button" class="answer-toggle" aria-expanded="false">Ответ</button></div></div></article></div></section><section class="section-card" id="final"><div class="section-head"><div><h2 class="section-title" data-base-text="Дополнительные вопросы">Дополнительные вопросы</h2><p class="section-summary" data-base-text="Короткие вопросы на общий уровень, системное мышление и практический опыт.">Короткие вопросы на общий уровень, системное мышление и практический опыт.</p></div></div><div class="cards"><article class="question-item" data-kind="question"><button type="button" class="question-item__toggle" aria-expanded="false">
         <span class="question-item__title" data-base-text="26. Почему Event Loop не является частью JavaScript?">26. Почему Event Loop не является частью JavaScript?</span>
         <span class="question-item__chevron" aria-hidden="true"></span>
     </button><div class="question-item__body"><p class="question-answer">Потому что сам JavaScript отвечает только за выполнение кода в одном потоке и за стек вызовов. А Event Loop, очереди задач и их планирование обычно предоставляет среда выполнения: браузер или Node.js.</p></div></article><article class="question-item" data-kind="question"><button type="button" class="question-item__toggle" aria-expanded="false">
@@ -525,181 +698,469 @@ observer<span class="token-operator">.</span>observe<span class="token-operator"
                         </p>
                     </div>
                 </div>
-                <div id="practice-list" class="practice-list"><article class="practice-item"><button type="button" class="practice-item__toggle" aria-expanded="false">
-            <span class="practice-item__index">1.</span>
-            <span class="practice-item__title" data-base-text="Реализовать debounce.">Реализовать debounce.</span>
-            <span class="practice-item__chevron" aria-hidden="true"></span>
-        </button><div class="practice-item__body"><p class="question-note" data-base-text="Сделай обёртку, которая вызывает функцию только после паузы без новых вызовов.">Сделай обёртку, которая вызывает функцию только после паузы без новых вызовов.</p><div class="code-shell"><button type="button" class="copy-btn" aria-label="Скопировать код">
+                <div id="practice-list" class="practice-list"><article class="practice-item"><button type="button" class="practice-item__toggle" aria-expanded="false"><span class="practice-item__index">1.</span><span class="practice-item__title" data-base-text="Реализовать debounce.">Реализовать debounce.</span><span class="practice-item__chevron" aria-hidden="true"></span></button><div class="practice-item__body"><p class="question-note" data-base-text="Сделай обёртку, которая вызывает функцию только после паузы без новых вызовов.">Сделай обёртку, которая вызывает функцию только после паузы без новых вызовов.</p><div class="code-shell"><button type="button" class="copy-btn" aria-label="Скопировать код">
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
             <path d="M8 4.75A2.75 2.75 0 0 1 10.75 2h6.5A2.75 2.75 0 0 1 20 4.75v9.5A2.75 2.75 0 0 1 17.25 17h-6.5A2.75 2.75 0 0 1 8 14.25v-9.5Zm2.75-1.25a1.25 1.25 0 0 0-1.25 1.25v9.5c0 .69.56 1.25 1.25 1.25h6.5c.69 0 1.25-.56 1.25-1.25v-9.5c0-.69-.56-1.25-1.25-1.25h-6.5Z"></path>
             <path d="M6.75 6A2.75 2.75 0 0 0 4 8.75v8.5A2.75 2.75 0 0 0 6.75 20h8.5A2.75 2.75 0 0 0 18 17.25V16h-1.5v1.25c0 .69-.56 1.25-1.25 1.25h-8.5c-.69 0-1.25-.56-1.25-1.25v-8.5c0-.69.56-1.25 1.25-1.25H7V6h-.25Z"></path>
         </svg>
     </button><pre class="code-block"><code data-raw="function debounce(fn, delay) {
-        return function (...args) {
-                // TODO: сбросить предыдущий таймер и поставить новый
-        };
-}" data-language="js"><span class="token-keyword">function</span> debounce<span class="token-operator">(</span>fn<span class="token-operator">,</span> delay<span class="token-operator">)</span> <span class="token-operator">{</span>
-        <span class="token-keyword">return</span> <span class="token-keyword">function</span> <span class="token-operator">(</span><span class="token-operator">.</span><span class="token-operator">.</span><span class="token-operator">.</span>args<span class="token-operator">)</span> <span class="token-operator">{</span>
-                <span class="token-comment">// TODO: сбросить предыдущий таймер и поставить новый</span>
-        <span class="token-operator">}</span><span class="token-operator">;</span>
-<span class="token-operator">}</span></code></pre></div><div class="answer-section"><div class="answer-panel" hidden=""><button type="button" class="answer-panel__close" aria-label="Скрыть ответ">×</button><h4 class="answer-panel__heading">Реализовать debounce.</h4><p>Идея решения: хранить таймер в замыкании, перед каждым новым вызовом сбрасывать предыдущий и ставить новый.</p><p>Внутри обёртки вызывай исходную функцию только после того, как пауза между вызовами действительно закончилась.</p></div><button type="button" class="answer-toggle" aria-expanded="false">Ответ</button></div></div></article><article class="practice-item"><button type="button" class="practice-item__toggle" aria-expanded="false">
-            <span class="practice-item__index">2.</span>
-            <span class="practice-item__title" data-base-text="Реализовать throttle.">Реализовать throttle.</span>
-            <span class="practice-item__chevron" aria-hidden="true"></span>
-        </button><div class="practice-item__body"><p class="question-note" data-base-text="Нужна функция, которая ограничивает частоту вызовов и не даёт запускаться чаще заданного интервала.">Нужна функция, которая ограничивает частоту вызовов и не даёт запускаться чаще заданного интервала.</p><div class="code-shell"><button type="button" class="copy-btn" aria-label="Скопировать код">
+    return function (...args) {
+        // TODO: сбросить предыдущий таймер и поставить новый
+    };
+}" data-language="js">function debounce(fn, delay) {
+    return function (...args) {
+        // TODO: сбросить предыдущий таймер и поставить новый
+    };
+}</code></pre></div><div class="answer-section"><div class="answer-panel" hidden=""><button type="button" class="answer-panel__close" aria-label="Скрыть ответ">×</button><h4 class="answer-panel__heading">Реализовать debounce.</h4><h5 class="answer-panel__subheading">Решение</h5><div class="code-shell"><button type="button" class="copy-btn" aria-label="Скопировать код">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M8 4.75A2.75 2.75 0 0 1 10.75 2h6.5A2.75 2.75 0 0 1 20 4.75v9.5A2.75 2.75 0 0 1 17.25 17h-6.5A2.75 2.75 0 0 1 8 14.25v-9.5Zm2.75-1.25a1.25 1.25 0 0 0-1.25 1.25v9.5c0 .69.56 1.25 1.25 1.25h6.5c.69 0 1.25-.56 1.25-1.25v-9.5c0-.69-.56-1.25-1.25-1.25h-6.5Z"></path>
+            <path d="M6.75 6A2.75 2.75 0 0 0 4 8.75v8.5A2.75 2.75 0 0 0 6.75 20h8.5A2.75 2.75 0 0 0 18 17.25V16h-1.5v1.25c0 .69-.56 1.25-1.25 1.25h-8.5c-.69 0-1.25-.56-1.25-1.25v-8.5c0-.69.56-1.25 1.25-1.25H7V6h-.25Z"></path>
+        </svg>
+    </button><pre class="code-block"><code data-raw="function debounce(fn, delay) {
+    let timerId;
+
+    return function (...args) {
+        clearTimeout(timerId);
+
+        timerId = setTimeout(() =&gt; {
+            fn.apply(this, args);
+        }, delay);
+    };
+}" data-language="js">function debounce(fn, delay) {
+    let timerId;
+
+    return function (...args) {
+        clearTimeout(timerId);
+
+        timerId = setTimeout(() =&gt; {
+            fn.apply(this, args);
+        }, delay);
+    };
+}</code></pre></div><h5 class="answer-panel__subheading">Пояснение</h5><p>Таймер хранится в замыкании. Каждый новый вызов сбрасывает предыдущий таймер, поэтому исходная функция выполняется только после паузы длиной <code>delay</code>. <code>apply</code> сохраняет текущий <code>this</code> и аргументы.</p></div><button type="button" class="answer-toggle" aria-expanded="false">Ответ</button></div></div></article><article class="practice-item"><button type="button" class="practice-item__toggle" aria-expanded="false"><span class="practice-item__index">2.</span><span class="practice-item__title" data-base-text="Реализовать throttle.">Реализовать throttle.</span><span class="practice-item__chevron" aria-hidden="true"></span></button><div class="practice-item__body"><p class="question-note" data-base-text="Нужна функция, которая ограничивает частоту вызовов и не даёт запускаться чаще заданного интервала.">Нужна функция, которая ограничивает частоту вызовов и не даёт запускаться чаще заданного интервала.</p><div class="code-shell"><button type="button" class="copy-btn" aria-label="Скопировать код">
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
             <path d="M8 4.75A2.75 2.75 0 0 1 10.75 2h6.5A2.75 2.75 0 0 1 20 4.75v9.5A2.75 2.75 0 0 1 17.25 17h-6.5A2.75 2.75 0 0 1 8 14.25v-9.5Zm2.75-1.25a1.25 1.25 0 0 0-1.25 1.25v9.5c0 .69.56 1.25 1.25 1.25h6.5c.69 0 1.25-.56 1.25-1.25v-9.5c0-.69-.56-1.25-1.25-1.25h-6.5Z"></path>
             <path d="M6.75 6A2.75 2.75 0 0 0 4 8.75v8.5A2.75 2.75 0 0 0 6.75 20h8.5A2.75 2.75 0 0 0 18 17.25V16h-1.5v1.25c0 .69-.56 1.25-1.25 1.25h-8.5c-.69 0-1.25-.56-1.25-1.25v-8.5c0-.69.56-1.25 1.25-1.25H7V6h-.25Z"></path>
         </svg>
     </button><pre class="code-block"><code data-raw="function throttle(fn, delay) {
-        return function (...args) {
-                // TODO: пропускать вызов только если интервал уже прошёл
-        };
-}" data-language="js"><span class="token-keyword">function</span> throttle<span class="token-operator">(</span>fn<span class="token-operator">,</span> delay<span class="token-operator">)</span> <span class="token-operator">{</span>
-        <span class="token-keyword">return</span> <span class="token-keyword">function</span> <span class="token-operator">(</span><span class="token-operator">.</span><span class="token-operator">.</span><span class="token-operator">.</span>args<span class="token-operator">)</span> <span class="token-operator">{</span>
-                <span class="token-comment">// TODO: пропускать вызов только если интервал уже прошёл</span>
-        <span class="token-operator">}</span><span class="token-operator">;</span>
-<span class="token-operator">}</span></code></pre></div><div class="answer-section"><div class="answer-panel" hidden=""><button type="button" class="answer-panel__close" aria-label="Скрыть ответ">×</button><h4 class="answer-panel__heading">Реализовать throttle.</h4><p>Идея решения: запоминать время последнего запуска или использовать флаг занятости, чтобы не запускать функцию чаще заданного интервала.</p><p>Если нужна более аккуратная версия, можно добавить и отложенный вызов для последнего срабатывания.</p></div><button type="button" class="answer-toggle" aria-expanded="false">Ответ</button></div></div></article><article class="practice-item"><button type="button" class="practice-item__toggle" aria-expanded="false">
-            <span class="practice-item__index">3.</span>
-            <span class="practice-item__title" data-base-text="Реализовать bind.">Реализовать bind.</span>
-            <span class="practice-item__chevron" aria-hidden="true"></span>
-        </button><div class="practice-item__body"><p class="question-note" data-base-text="Сделай свою версию bind, которая фиксирует this и частично применённые аргументы.">Сделай свою версию bind, которая фиксирует this и частично применённые аргументы.</p><div class="code-shell"><button type="button" class="copy-btn" aria-label="Скопировать код">
+    return function (...args) {
+        // TODO: пропускать вызов только если интервал уже прошёл
+    };
+}" data-language="js">function throttle(fn, delay) {
+    return function (...args) {
+        // TODO: пропускать вызов только если интервал уже прошёл
+    };
+}</code></pre></div><div class="answer-section"><div class="answer-panel" hidden=""><button type="button" class="answer-panel__close" aria-label="Скрыть ответ">×</button><h4 class="answer-panel__heading">Реализовать throttle.</h4><h5 class="answer-panel__subheading">Решение</h5><div class="code-shell"><button type="button" class="copy-btn" aria-label="Скопировать код">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M8 4.75A2.75 2.75 0 0 1 10.75 2h6.5A2.75 2.75 0 0 1 20 4.75v9.5A2.75 2.75 0 0 1 17.25 17h-6.5A2.75 2.75 0 0 1 8 14.25v-9.5Zm2.75-1.25a1.25 1.25 0 0 0-1.25 1.25v9.5c0 .69.56 1.25 1.25 1.25h6.5c.69 0 1.25-.56 1.25-1.25v-9.5c0-.69-.56-1.25-1.25-1.25h-6.5Z"></path>
+            <path d="M6.75 6A2.75 2.75 0 0 0 4 8.75v8.5A2.75 2.75 0 0 0 6.75 20h8.5A2.75 2.75 0 0 0 18 17.25V16h-1.5v1.25c0 .69-.56 1.25-1.25 1.25h-8.5c-.69 0-1.25-.56-1.25-1.25v-8.5c0-.69.56-1.25 1.25-1.25H7V6h-.25Z"></path>
+        </svg>
+    </button><pre class="code-block"><code data-raw="function throttle(fn, delay) {
+    let lastCall = 0;
+
+    return function (...args) {
+        const now = Date.now();
+
+        if (now - lastCall &lt; delay) return;
+
+        lastCall = now;
+        fn.apply(this, args);
+    };
+}" data-language="js">function throttle(fn, delay) {
+    let lastCall = 0;
+
+    return function (...args) {
+        const now = Date.now();
+
+        if (now - lastCall &lt; delay) return;
+
+        lastCall = now;
+        fn.apply(this, args);
+    };
+}</code></pre></div><h5 class="answer-panel__subheading">Пояснение</h5><p>Мы запоминаем время последнего запуска. Новый вызов выполняется только если с прошлого запуска прошло не меньше <code>delay</code>. Это простой throttle без отложенного последнего вызова.</p></div><button type="button" class="answer-toggle" aria-expanded="false">Ответ</button></div></div></article><article class="practice-item"><button type="button" class="practice-item__toggle" aria-expanded="false"><span class="practice-item__index">3.</span><span class="practice-item__title" data-base-text="Реализовать bind.">Реализовать bind.</span><span class="practice-item__chevron" aria-hidden="true"></span></button><div class="practice-item__body"><p class="question-note" data-base-text="Сделай свою версию bind, которая фиксирует this и частично применённые аргументы.">Сделай свою версию bind, которая фиксирует this и частично применённые аргументы.</p><div class="code-shell"><button type="button" class="copy-btn" aria-label="Скопировать код">
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
             <path d="M8 4.75A2.75 2.75 0 0 1 10.75 2h6.5A2.75 2.75 0 0 1 20 4.75v9.5A2.75 2.75 0 0 1 17.25 17h-6.5A2.75 2.75 0 0 1 8 14.25v-9.5Zm2.75-1.25a1.25 1.25 0 0 0-1.25 1.25v9.5c0 .69.56 1.25 1.25 1.25h6.5c.69 0 1.25-.56 1.25-1.25v-9.5c0-.69-.56-1.25-1.25-1.25h-6.5Z"></path>
             <path d="M6.75 6A2.75 2.75 0 0 0 4 8.75v8.5A2.75 2.75 0 0 0 6.75 20h8.5A2.75 2.75 0 0 0 18 17.25V16h-1.5v1.25c0 .69-.56 1.25-1.25 1.25h-8.5c-.69 0-1.25-.56-1.25-1.25v-8.5c0-.69.56-1.25 1.25-1.25H7V6h-.25Z"></path>
         </svg>
     </button><pre class="code-block"><code data-raw="Function.prototype.myBind = function (context, ...presetArgs) {
-        // TODO: вернуть новую функцию с закреплённым контекстом
-};" data-language="js"><span class="token-builtins">Function</span><span class="token-operator">.</span>prototype<span class="token-operator">.</span>myBind <span class="token-operator">=</span> <span class="token-keyword">function</span> <span class="token-operator">(</span>context<span class="token-operator">,</span> <span class="token-operator">.</span><span class="token-operator">.</span><span class="token-operator">.</span>presetArgs<span class="token-operator">)</span> <span class="token-operator">{</span>
-        <span class="token-comment">// TODO: вернуть новую функцию с закреплённым контекстом</span>
-<span class="token-operator">}</span><span class="token-operator">;</span></code></pre></div><div class="answer-section"><div class="answer-panel" hidden=""><button type="button" class="answer-panel__close" aria-label="Скрыть ответ">×</button><h4 class="answer-panel__heading">Реализовать bind.</h4><p>Нужно вернуть новую функцию, которая будет вызывать исходную через `apply` или `call` с заранее закреплённым `this` и частично переданными аргументами.</p><p>Если хочешь приблизиться к нативному `bind`, отдельно учитывай сценарий вызова через `new`.</p></div><button type="button" class="answer-toggle" aria-expanded="false">Ответ</button></div></div></article><article class="practice-item"><button type="button" class="practice-item__toggle" aria-expanded="false">
-            <span class="practice-item__index">4.</span>
-            <span class="practice-item__title" data-base-text="Реализовать Promise.all.">Реализовать Promise.all.</span>
-            <span class="practice-item__chevron" aria-hidden="true"></span>
-        </button><div class="practice-item__body"><p class="question-note" data-base-text="Собери массив результатов в исходном порядке и заверши выполнение при первом reject.">Собери массив результатов в исходном порядке и заверши выполнение при первом reject.</p><div class="code-shell"><button type="button" class="copy-btn" aria-label="Скопировать код">
+    // TODO: вернуть новую функцию с закреплённым контекстом
+};" data-language="js">Function.prototype.myBind = function (context, ...presetArgs) {
+    // TODO: вернуть новую функцию с закреплённым контекстом
+};</code></pre></div><div class="answer-section"><div class="answer-panel" hidden=""><button type="button" class="answer-panel__close" aria-label="Скрыть ответ">×</button><h4 class="answer-panel__heading">Реализовать bind.</h4><h5 class="answer-panel__subheading">Решение</h5><div class="code-shell"><button type="button" class="copy-btn" aria-label="Скопировать код">
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
             <path d="M8 4.75A2.75 2.75 0 0 1 10.75 2h6.5A2.75 2.75 0 0 1 20 4.75v9.5A2.75 2.75 0 0 1 17.25 17h-6.5A2.75 2.75 0 0 1 8 14.25v-9.5Zm2.75-1.25a1.25 1.25 0 0 0-1.25 1.25v9.5c0 .69.56 1.25 1.25 1.25h6.5c.69 0 1.25-.56 1.25-1.25v-9.5c0-.69-.56-1.25-1.25-1.25h-6.5Z"></path>
             <path d="M6.75 6A2.75 2.75 0 0 0 4 8.75v8.5A2.75 2.75 0 0 0 6.75 20h8.5A2.75 2.75 0 0 0 18 17.25V16h-1.5v1.25c0 .69-.56 1.25-1.25 1.25h-8.5c-.69 0-1.25-.56-1.25-1.25v-8.5c0-.69.56-1.25 1.25-1.25H7V6h-.25Z"></path>
         </svg>
-    </button><pre class="code-block"><code data-raw="function promiseAll(promises) {
-        return new Promise((resolve, reject) =&gt; {
-                // TODO: дождаться всех промисов и сохранить порядок результатов
+    </button><pre class="code-block"><code data-raw="Function.prototype.myBind = function (context, ...presetArgs) {
+    const fn = this;
+
+    return function (...args) {
+        return fn.apply(context, [...presetArgs, ...args]);
+    };
+};" data-language="js">Function.prototype.myBind = function (context, ...presetArgs) {
+    const fn = this;
+
+    return function (...args) {
+        return fn.apply(context, [...presetArgs, ...args]);
+    };
+};</code></pre></div><h5 class="answer-panel__subheading">Пояснение</h5><p>Исходная функция сохраняется в переменной <code>fn</code>. Возвращённая функция вызывает её через <code>apply</code> с закреплённым контекстом и объединяет заранее переданные аргументы с новыми.</p></div><button type="button" class="answer-toggle" aria-expanded="false">Ответ</button></div></div></article><article class="practice-item"><button type="button" class="practice-item__toggle" aria-expanded="false"><span class="practice-item__index">4.</span><span class="practice-item__title" data-base-text="Реализовать Promise.allSettled.">Реализовать Promise.allSettled.</span><span class="practice-item__chevron" aria-hidden="true"></span></button><div class="practice-item__body"><p class="question-note" data-base-text="Дождись завершения всех промисов и верни для каждого статус: fulfilled или rejected.">Дождись завершения всех промисов и верни для каждого статус: fulfilled или rejected.</p><div class="code-shell"><button type="button" class="copy-btn" aria-label="Скопировать код">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M8 4.75A2.75 2.75 0 0 1 10.75 2h6.5A2.75 2.75 0 0 1 20 4.75v9.5A2.75 2.75 0 0 1 17.25 17h-6.5A2.75 2.75 0 0 1 8 14.25v-9.5Zm2.75-1.25a1.25 1.25 0 0 0-1.25 1.25v9.5c0 .69.56 1.25 1.25 1.25h6.5c.69 0 1.25-.56 1.25-1.25v-9.5c0-.69-.56-1.25-1.25-1.25h-6.5Z"></path>
+            <path d="M6.75 6A2.75 2.75 0 0 0 4 8.75v8.5A2.75 2.75 0 0 0 6.75 20h8.5A2.75 2.75 0 0 0 18 17.25V16h-1.5v1.25c0 .69-.56 1.25-1.25 1.25h-8.5c-.69 0-1.25-.56-1.25-1.25v-8.5c0-.69.56-1.25 1.25-1.25H7V6h-.25Z"></path>
+        </svg>
+    </button><pre class="code-block"><code data-raw="function promiseAllSettled(promises) {
+    return new Promise((resolve) =&gt; {
+        // TODO: собрать статусы всех промисов
+    });
+}" data-language="js">function promiseAllSettled(promises) {
+    return new Promise((resolve) =&gt; {
+        // TODO: собрать статусы всех промисов
+    });
+}</code></pre></div><div class="answer-section"><div class="answer-panel" hidden=""><button type="button" class="answer-panel__close" aria-label="Скрыть ответ">×</button><h4 class="answer-panel__heading">Реализовать Promise.allSettled.</h4><h5 class="answer-panel__subheading">Решение</h5><div class="code-shell"><button type="button" class="copy-btn" aria-label="Скопировать код">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M8 4.75A2.75 2.75 0 0 1 10.75 2h6.5A2.75 2.75 0 0 1 20 4.75v9.5A2.75 2.75 0 0 1 17.25 17h-6.5A2.75 2.75 0 0 1 8 14.25v-9.5Zm2.75-1.25a1.25 1.25 0 0 0-1.25 1.25v9.5c0 .69.56 1.25 1.25 1.25h6.5c.69 0 1.25-.56 1.25-1.25v-9.5c0-.69-.56-1.25-1.25-1.25h-6.5Z"></path>
+            <path d="M6.75 6A2.75 2.75 0 0 0 4 8.75v8.5A2.75 2.75 0 0 0 6.75 20h8.5A2.75 2.75 0 0 0 18 17.25V16h-1.5v1.25c0 .69-.56 1.25-1.25 1.25h-8.5c-.69 0-1.25-.56-1.25-1.25v-8.5c0-.69.56-1.25 1.25-1.25H7V6h-.25Z"></path>
+        </svg>
+    </button><pre class="code-block"><code data-raw="function promiseAllSettled(promises) {
+    return new Promise((resolve) =&gt; {
+        const results = [];
+        let completed = 0;
+
+        if (promises.length === 0) {
+            resolve(results);
+            return;
+        }
+
+        promises.forEach((promise, index) =&gt; {
+            Promise.resolve(promise)
+                .then((value) =&gt; {
+                    results[index] = { status: &quot;fulfilled&quot;, value };
+                })
+                .catch((reason) =&gt; {
+                    results[index] = { status: &quot;rejected&quot;, reason };
+                })
+                .finally(() =&gt; {
+                    completed += 1;
+
+                    if (completed === promises.length) {
+                        resolve(results);
+                    }
+                });
         });
-}" data-language="js"><span class="token-keyword">function</span> promiseAll<span class="token-operator">(</span>promises<span class="token-operator">)</span> <span class="token-operator">{</span>
-        <span class="token-keyword">return</span> <span class="token-keyword">new</span> <span class="token-builtins">Promise</span><span class="token-operator">(</span><span class="token-operator">(</span>resolve<span class="token-operator">,</span> reject<span class="token-operator">)</span> <span class="token-operator">=&gt;</span> <span class="token-operator">{</span>
-                <span class="token-comment">// TODO: дождаться всех промисов и сохранить порядок результатов</span>
-        <span class="token-operator">}</span><span class="token-operator">)</span><span class="token-operator">;</span>
-<span class="token-operator">}</span></code></pre></div><div class="answer-section"><div class="answer-panel" hidden=""><button type="button" class="answer-panel__close" aria-label="Скрыть ответ">×</button><h4 class="answer-panel__heading">Реализовать Promise.all.</h4><p>Идея решения: создать массив результатов, считать завершённые промисы и сохранить порядок по исходным индексам.</p><p>При первом reject нужно сразу завершать итоговый Promise ошибкой, а при успехе всех задач — вернуть собранный массив.</p></div><button type="button" class="answer-toggle" aria-expanded="false">Ответ</button></div></div></article><article class="practice-item"><button type="button" class="practice-item__toggle" aria-expanded="false">
-            <span class="practice-item__index">5.</span>
-            <span class="practice-item__title" data-base-text="Реализовать EventEmitter.">Реализовать EventEmitter.</span>
-            <span class="practice-item__chevron" aria-hidden="true"></span>
-        </button><div class="practice-item__body"><p class="question-note" data-base-text="Нужен небольшой emitter с подпиской, вызовом событий и снятием подписки.">Нужен небольшой emitter с подпиской, вызовом событий и снятием подписки.</p><div class="code-shell"><button type="button" class="copy-btn" aria-label="Скопировать код">
+    });
+}" data-language="js">function promiseAllSettled(promises) {
+    return new Promise((resolve) =&gt; {
+        const results = [];
+        let completed = 0;
+
+        if (promises.length === 0) {
+            resolve(results);
+            return;
+        }
+
+        promises.forEach((promise, index) =&gt; {
+            Promise.resolve(promise)
+                .then((value) =&gt; {
+                    results[index] = { status: &quot;fulfilled&quot;, value };
+                })
+                .catch((reason) =&gt; {
+                    results[index] = { status: &quot;rejected&quot;, reason };
+                })
+                .finally(() =&gt; {
+                    completed += 1;
+
+                    if (completed === promises.length) {
+                        resolve(results);
+                    }
+                });
+        });
+    });
+}</code></pre></div><h5 class="answer-panel__subheading">Пояснение</h5><p><code>allSettled</code> не падает при первом reject. Каждый промис превращается в объект результата со статусом, а итоговый промис завершается только после обработки всех элементов.</p></div><button type="button" class="answer-toggle" aria-expanded="false">Ответ</button></div></div></article><article class="practice-item"><button type="button" class="practice-item__toggle" aria-expanded="false"><span class="practice-item__index">5.</span><span class="practice-item__title" data-base-text="Реализовать EventEmitter.">Реализовать EventEmitter.</span><span class="practice-item__chevron" aria-hidden="true"></span></button><div class="practice-item__body"><p class="question-note" data-base-text="Нужен небольшой emitter с подпиской, вызовом событий и снятием подписки.">Нужен небольшой emitter с подпиской, вызовом событий и снятием подписки.</p><div class="code-shell"><button type="button" class="copy-btn" aria-label="Скопировать код">
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
             <path d="M8 4.75A2.75 2.75 0 0 1 10.75 2h6.5A2.75 2.75 0 0 1 20 4.75v9.5A2.75 2.75 0 0 1 17.25 17h-6.5A2.75 2.75 0 0 1 8 14.25v-9.5Zm2.75-1.25a1.25 1.25 0 0 0-1.25 1.25v9.5c0 .69.56 1.25 1.25 1.25h6.5c.69 0 1.25-.56 1.25-1.25v-9.5c0-.69-.56-1.25-1.25-1.25h-6.5Z"></path>
             <path d="M6.75 6A2.75 2.75 0 0 0 4 8.75v8.5A2.75 2.75 0 0 0 6.75 20h8.5A2.75 2.75 0 0 0 18 17.25V16h-1.5v1.25c0 .69-.56 1.25-1.25 1.25h-8.5c-.69 0-1.25-.56-1.25-1.25v-8.5c0-.69.56-1.25 1.25-1.25H7V6h-.25Z"></path>
         </svg>
     </button><pre class="code-block"><code data-raw="class EventEmitter {
-        on(eventName, handler) {
-                // TODO
+    on(eventName, handler) {
+        // TODO
+    }
+
+    emit(eventName, ...args) {
+        // TODO
+    }
+
+    off(eventName, handler) {
+        // TODO
+    }
+}" data-language="js">class EventEmitter {
+    on(eventName, handler) {
+        // TODO
+    }
+
+    emit(eventName, ...args) {
+        // TODO
+    }
+
+    off(eventName, handler) {
+        // TODO
+    }
+}</code></pre></div><div class="answer-section"><div class="answer-panel" hidden=""><button type="button" class="answer-panel__close" aria-label="Скрыть ответ">×</button><h4 class="answer-panel__heading">Реализовать EventEmitter.</h4><h5 class="answer-panel__subheading">Решение</h5><div class="code-shell"><button type="button" class="copy-btn" aria-label="Скопировать код">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M8 4.75A2.75 2.75 0 0 1 10.75 2h6.5A2.75 2.75 0 0 1 20 4.75v9.5A2.75 2.75 0 0 1 17.25 17h-6.5A2.75 2.75 0 0 1 8 14.25v-9.5Zm2.75-1.25a1.25 1.25 0 0 0-1.25 1.25v9.5c0 .69.56 1.25 1.25 1.25h6.5c.69 0 1.25-.56 1.25-1.25v-9.5c0-.69-.56-1.25-1.25-1.25h-6.5Z"></path>
+            <path d="M6.75 6A2.75 2.75 0 0 0 4 8.75v8.5A2.75 2.75 0 0 0 6.75 20h8.5A2.75 2.75 0 0 0 18 17.25V16h-1.5v1.25c0 .69-.56 1.25-1.25 1.25h-8.5c-.69 0-1.25-.56-1.25-1.25v-8.5c0-.69.56-1.25 1.25-1.25H7V6h-.25Z"></path>
+        </svg>
+    </button><pre class="code-block"><code data-raw="class EventEmitter {
+    constructor() {
+        this.events = new Map();
+    }
+
+    on(eventName, handler) {
+        if (!this.events.has(eventName)) {
+            this.events.set(eventName, new Set());
         }
 
-        emit(eventName, ...args) {
-                // TODO
+        this.events.get(eventName).add(handler);
+    }
+
+    emit(eventName, ...args) {
+        const handlers = this.events.get(eventName);
+        if (!handlers) return;
+
+        handlers.forEach((handler) =&gt; handler(...args));
+    }
+
+    off(eventName, handler) {
+        this.events.get(eventName)?.delete(handler);
+    }
+}" data-language="js">class EventEmitter {
+    constructor() {
+        this.events = new Map();
+    }
+
+    on(eventName, handler) {
+        if (!this.events.has(eventName)) {
+            this.events.set(eventName, new Set());
         }
 
-        off(eventName, handler) {
-                // TODO
-        }
-}" data-language="js"><span class="token-keyword">class</span> EventEmitter <span class="token-operator">{</span>
-        on<span class="token-operator">(</span>eventName<span class="token-operator">,</span> handler<span class="token-operator">)</span> <span class="token-operator">{</span>
-                <span class="token-comment">// TODO</span>
-        <span class="token-operator">}</span>
+        this.events.get(eventName).add(handler);
+    }
 
-        emit<span class="token-operator">(</span>eventName<span class="token-operator">,</span> <span class="token-operator">.</span><span class="token-operator">.</span><span class="token-operator">.</span>args<span class="token-operator">)</span> <span class="token-operator">{</span>
-                <span class="token-comment">// TODO</span>
-        <span class="token-operator">}</span>
+    emit(eventName, ...args) {
+        const handlers = this.events.get(eventName);
+        if (!handlers) return;
 
-        off<span class="token-operator">(</span>eventName<span class="token-operator">,</span> handler<span class="token-operator">)</span> <span class="token-operator">{</span>
-                <span class="token-comment">// TODO</span>
-        <span class="token-operator">}</span>
-<span class="token-operator">}</span></code></pre></div><div class="answer-section"><div class="answer-panel" hidden=""><button type="button" class="answer-panel__close" aria-label="Скрыть ответ">×</button><h4 class="answer-panel__heading">Реализовать EventEmitter.</h4><p>Обычно `EventEmitter` строят на `Map`, где ключ — имя события, а значение — набор обработчиков.</p><p>Методы `on`, `emit` и `off` затем просто добавляют, вызывают и удаляют функции из этой структуры.</p></div><button type="button" class="answer-toggle" aria-expanded="false">Ответ</button></div></div></article><article class="practice-item"><button type="button" class="practice-item__toggle" aria-expanded="false">
-            <span class="practice-item__index">6.</span>
-            <span class="practice-item__title" data-base-text="Реализовать once().">Реализовать once().</span>
-            <span class="practice-item__chevron" aria-hidden="true"></span>
-        </button><div class="practice-item__body"><p class="question-note" data-base-text="Нужна обёртка, которая даёт выполнить функцию только один раз.">Нужна обёртка, которая даёт выполнить функцию только один раз.</p><div class="code-shell"><button type="button" class="copy-btn" aria-label="Скопировать код">
+        handlers.forEach((handler) =&gt; handler(...args));
+    }
+
+    off(eventName, handler) {
+        this.events.get(eventName)?.delete(handler);
+    }
+}</code></pre></div><h5 class="answer-panel__subheading">Пояснение</h5><p><code>Map</code> хранит события, а <code>Set</code> хранит обработчики без дублей. <code>on</code> добавляет обработчик, <code>emit</code> вызывает все обработчики события, <code>off</code> удаляет конкретную функцию.</p></div><button type="button" class="answer-toggle" aria-expanded="false">Ответ</button></div></div></article><article class="practice-item"><button type="button" class="practice-item__toggle" aria-expanded="false"><span class="practice-item__index">6.</span><span class="practice-item__title" data-base-text="Реализовать once().">Реализовать once().</span><span class="practice-item__chevron" aria-hidden="true"></span></button><div class="practice-item__body"><p class="question-note" data-base-text="Нужна обёртка, которая даёт выполнить функцию только один раз.">Нужна обёртка, которая даёт выполнить функцию только один раз.</p><div class="code-shell"><button type="button" class="copy-btn" aria-label="Скопировать код">
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
             <path d="M8 4.75A2.75 2.75 0 0 1 10.75 2h6.5A2.75 2.75 0 0 1 20 4.75v9.5A2.75 2.75 0 0 1 17.25 17h-6.5A2.75 2.75 0 0 1 8 14.25v-9.5Zm2.75-1.25a1.25 1.25 0 0 0-1.25 1.25v9.5c0 .69.56 1.25 1.25 1.25h6.5c.69 0 1.25-.56 1.25-1.25v-9.5c0-.69-.56-1.25-1.25-1.25h-6.5Z"></path>
             <path d="M6.75 6A2.75 2.75 0 0 0 4 8.75v8.5A2.75 2.75 0 0 0 6.75 20h8.5A2.75 2.75 0 0 0 18 17.25V16h-1.5v1.25c0 .69-.56 1.25-1.25 1.25h-8.5c-.69 0-1.25-.56-1.25-1.25v-8.5c0-.69.56-1.25 1.25-1.25H7V6h-.25Z"></path>
         </svg>
     </button><pre class="code-block"><code data-raw="function once(fn) {
-        return function (...args) {
-                // TODO: выполнить fn только при первом вызове
-        };
-}" data-language="js"><span class="token-keyword">function</span> once<span class="token-operator">(</span>fn<span class="token-operator">)</span> <span class="token-operator">{</span>
-        <span class="token-keyword">return</span> <span class="token-keyword">function</span> <span class="token-operator">(</span><span class="token-operator">.</span><span class="token-operator">.</span><span class="token-operator">.</span>args<span class="token-operator">)</span> <span class="token-operator">{</span>
-                <span class="token-comment">// TODO: выполнить fn только при первом вызове</span>
-        <span class="token-operator">}</span><span class="token-operator">;</span>
-<span class="token-operator">}</span></code></pre></div><div class="answer-section"><div class="answer-panel" hidden=""><button type="button" class="answer-panel__close" aria-label="Скрыть ответ">×</button><h4 class="answer-panel__heading">Реализовать once().</h4><p>Нужна оболочка, которая запомнит факт первого вызова и не даст повторно запустить исходную функцию.</p><p>Чаще всего для этого достаточно флага в замыкании или замены внутренней ссылки после первого выполнения.</p></div><button type="button" class="answer-toggle" aria-expanded="false">Ответ</button></div></div></article><article class="practice-item"><button type="button" class="practice-item__toggle" aria-expanded="false">
-            <span class="practice-item__index">7.</span>
-            <span class="practice-item__title" data-base-text="Реализовать memoize().">Реализовать memoize().</span>
-            <span class="practice-item__chevron" aria-hidden="true"></span>
-        </button><div class="practice-item__body"><p class="question-note" data-base-text="Закешируй результаты функции по аргументам, чтобы повторные вызовы были дешевле.">Закешируй результаты функции по аргументам, чтобы повторные вызовы были дешевле.</p><div class="code-shell"><button type="button" class="copy-btn" aria-label="Скопировать код">
+    return function (...args) {
+        // TODO: выполнить fn только при первом вызове
+    };
+}" data-language="js">function once(fn) {
+    return function (...args) {
+        // TODO: выполнить fn только при первом вызове
+    };
+}</code></pre></div><div class="answer-section"><div class="answer-panel" hidden=""><button type="button" class="answer-panel__close" aria-label="Скрыть ответ">×</button><h4 class="answer-panel__heading">Реализовать once().</h4><h5 class="answer-panel__subheading">Решение</h5><div class="code-shell"><button type="button" class="copy-btn" aria-label="Скопировать код">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M8 4.75A2.75 2.75 0 0 1 10.75 2h6.5A2.75 2.75 0 0 1 20 4.75v9.5A2.75 2.75 0 0 1 17.25 17h-6.5A2.75 2.75 0 0 1 8 14.25v-9.5Zm2.75-1.25a1.25 1.25 0 0 0-1.25 1.25v9.5c0 .69.56 1.25 1.25 1.25h6.5c.69 0 1.25-.56 1.25-1.25v-9.5c0-.69-.56-1.25-1.25-1.25h-6.5Z"></path>
+            <path d="M6.75 6A2.75 2.75 0 0 0 4 8.75v8.5A2.75 2.75 0 0 0 6.75 20h8.5A2.75 2.75 0 0 0 18 17.25V16h-1.5v1.25c0 .69-.56 1.25-1.25 1.25h-8.5c-.69 0-1.25-.56-1.25-1.25v-8.5c0-.69.56-1.25 1.25-1.25H7V6h-.25Z"></path>
+        </svg>
+    </button><pre class="code-block"><code data-raw="function once(fn) {
+    let called = false;
+    let result;
+
+    return function (...args) {
+        if (called) return result;
+
+        called = true;
+        result = fn.apply(this, args);
+        return result;
+    };
+}" data-language="js">function once(fn) {
+    let called = false;
+    let result;
+
+    return function (...args) {
+        if (called) return result;
+
+        called = true;
+        result = fn.apply(this, args);
+        return result;
+    };
+}</code></pre></div><h5 class="answer-panel__subheading">Пояснение</h5><p>Флаг <code>called</code> хранится в замыкании и не даёт повторно вызвать исходную функцию. Сохранённый <code>result</code> возвращается при следующих вызовах.</p></div><button type="button" class="answer-toggle" aria-expanded="false">Ответ</button></div></div></article><article class="practice-item"><button type="button" class="practice-item__toggle" aria-expanded="false"><span class="practice-item__index">7.</span><span class="practice-item__title" data-base-text="Реализовать memoize().">Реализовать memoize().</span><span class="practice-item__chevron" aria-hidden="true"></span></button><div class="practice-item__body"><p class="question-note" data-base-text="Закешируй результаты функции по аргументам, чтобы повторные вызовы были дешевле.">Закешируй результаты функции по аргументам, чтобы повторные вызовы были дешевле.</p><div class="code-shell"><button type="button" class="copy-btn" aria-label="Скопировать код">
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
             <path d="M8 4.75A2.75 2.75 0 0 1 10.75 2h6.5A2.75 2.75 0 0 1 20 4.75v9.5A2.75 2.75 0 0 1 17.25 17h-6.5A2.75 2.75 0 0 1 8 14.25v-9.5Zm2.75-1.25a1.25 1.25 0 0 0-1.25 1.25v9.5c0 .69.56 1.25 1.25 1.25h6.5c.69 0 1.25-.56 1.25-1.25v-9.5c0-.69-.56-1.25-1.25-1.25h-6.5Z"></path>
             <path d="M6.75 6A2.75 2.75 0 0 0 4 8.75v8.5A2.75 2.75 0 0 0 6.75 20h8.5A2.75 2.75 0 0 0 18 17.25V16h-1.5v1.25c0 .69-.56 1.25-1.25 1.25h-8.5c-.69 0-1.25-.56-1.25-1.25v-8.5c0-.69.56-1.25 1.25-1.25H7V6h-.25Z"></path>
         </svg>
     </button><pre class="code-block"><code data-raw="function memoize(fn) {
-        const cache = new Map();
+    const cache = new Map();
 
-        return function (...args) {
-                // TODO: искать в кеше и сохранять новый результат
-        };
-}" data-language="js"><span class="token-keyword">function</span> memoize<span class="token-operator">(</span>fn<span class="token-operator">)</span> <span class="token-operator">{</span>
-        <span class="token-keyword">const</span> cache <span class="token-operator">=</span> <span class="token-keyword">new</span> <span class="token-builtins">Map</span><span class="token-operator">(</span><span class="token-operator">)</span><span class="token-operator">;</span>
+    return function (...args) {
+        // TODO: искать в кеше и сохранять новый результат
+    };
+}" data-language="js">function memoize(fn) {
+    const cache = new Map();
 
-        <span class="token-keyword">return</span> <span class="token-keyword">function</span> <span class="token-operator">(</span><span class="token-operator">.</span><span class="token-operator">.</span><span class="token-operator">.</span>args<span class="token-operator">)</span> <span class="token-operator">{</span>
-                <span class="token-comment">// TODO: искать в кеше и сохранять новый результат</span>
-        <span class="token-operator">}</span><span class="token-operator">;</span>
-<span class="token-operator">}</span></code></pre></div><div class="answer-section"><div class="answer-panel" hidden=""><button type="button" class="answer-panel__close" aria-label="Скрыть ответ">×</button><h4 class="answer-panel__heading">Реализовать memoize().</h4><p>Нужно хранить результаты функции в кеше и возвращать их повторно, если аргументы уже встречались.</p><p>Для простого варианта достаточно `Map`, а для более сложного — аккуратно выбирать способ формирования ключа.</p></div><button type="button" class="answer-toggle" aria-expanded="false">Ответ</button></div></div></article><article class="practice-item"><button type="button" class="practice-item__toggle" aria-expanded="false">
-            <span class="practice-item__index">8.</span>
-            <span class="practice-item__title" data-base-text="Реализовать собственный new.">Реализовать собственный new.</span>
-            <span class="practice-item__chevron" aria-hidden="true"></span>
-        </button><div class="practice-item__body"><p class="question-note" data-base-text="Повтори шаги оператора new: создать объект, связать прототип и вызвать конструктор.">Повтори шаги оператора new: создать объект, связать прототип и вызвать конструктор.</p><div class="code-shell"><button type="button" class="copy-btn" aria-label="Скопировать код">
+    return function (...args) {
+        // TODO: искать в кеше и сохранять новый результат
+    };
+}</code></pre></div><div class="answer-section"><div class="answer-panel" hidden=""><button type="button" class="answer-panel__close" aria-label="Скрыть ответ">×</button><h4 class="answer-panel__heading">Реализовать memoize().</h4><h5 class="answer-panel__subheading">Решение</h5><div class="code-shell"><button type="button" class="copy-btn" aria-label="Скопировать код">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M8 4.75A2.75 2.75 0 0 1 10.75 2h6.5A2.75 2.75 0 0 1 20 4.75v9.5A2.75 2.75 0 0 1 17.25 17h-6.5A2.75 2.75 0 0 1 8 14.25v-9.5Zm2.75-1.25a1.25 1.25 0 0 0-1.25 1.25v9.5c0 .69.56 1.25 1.25 1.25h6.5c.69 0 1.25-.56 1.25-1.25v-9.5c0-.69-.56-1.25-1.25-1.25h-6.5Z"></path>
+            <path d="M6.75 6A2.75 2.75 0 0 0 4 8.75v8.5A2.75 2.75 0 0 0 6.75 20h8.5A2.75 2.75 0 0 0 18 17.25V16h-1.5v1.25c0 .69-.56 1.25-1.25 1.25h-8.5c-.69 0-1.25-.56-1.25-1.25v-8.5c0-.69.56-1.25 1.25-1.25H7V6h-.25Z"></path>
+        </svg>
+    </button><pre class="code-block"><code data-raw="function memoize(fn) {
+    const cache = new Map();
+
+    return function (...args) {
+        const key = JSON.stringify(args);
+
+        if (cache.has(key)) {
+            return cache.get(key);
+        }
+
+        const result = fn.apply(this, args);
+        cache.set(key, result);
+        return result;
+    };
+}" data-language="js">function memoize(fn) {
+    const cache = new Map();
+
+    return function (...args) {
+        const key = JSON.stringify(args);
+
+        if (cache.has(key)) {
+            return cache.get(key);
+        }
+
+        const result = fn.apply(this, args);
+        cache.set(key, result);
+        return result;
+    };
+}</code></pre></div><h5 class="answer-panel__subheading">Пояснение</h5><p><code>Map</code> хранит результат по ключу, собранному из аргументов. Для простых данных достаточно <code>JSON.stringify</code>, но для объектов, функций и циклических структур нужен более надёжный способ формирования ключа.</p></div><button type="button" class="answer-toggle" aria-expanded="false">Ответ</button></div></div></article><article class="practice-item"><button type="button" class="practice-item__toggle" aria-expanded="false"><span class="practice-item__index">8.</span><span class="practice-item__title" data-base-text="Реализовать собственный new.">Реализовать собственный new.</span><span class="practice-item__chevron" aria-hidden="true"></span></button><div class="practice-item__body"><p class="question-note" data-base-text="Повтори шаги оператора new: создать объект, связать прототип и вызвать конструктор.">Повтори шаги оператора new: создать объект, связать прототип и вызвать конструктор.</p><div class="code-shell"><button type="button" class="copy-btn" aria-label="Скопировать код">
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
             <path d="M8 4.75A2.75 2.75 0 0 1 10.75 2h6.5A2.75 2.75 0 0 1 20 4.75v9.5A2.75 2.75 0 0 1 17.25 17h-6.5A2.75 2.75 0 0 1 8 14.25v-9.5Zm2.75-1.25a1.25 1.25 0 0 0-1.25 1.25v9.5c0 .69.56 1.25 1.25 1.25h6.5c.69 0 1.25-.56 1.25-1.25v-9.5c0-.69-.56-1.25-1.25-1.25h-6.5Z"></path>
             <path d="M6.75 6A2.75 2.75 0 0 0 4 8.75v8.5A2.75 2.75 0 0 0 6.75 20h8.5A2.75 2.75 0 0 0 18 17.25V16h-1.5v1.25c0 .69-.56 1.25-1.25 1.25h-8.5c-.69 0-1.25-.56-1.25-1.25v-8.5c0-.69.56-1.25 1.25-1.25H7V6h-.25Z"></path>
         </svg>
     </button><pre class="code-block"><code data-raw="function myNew(ctor, ...args) {
-        // TODO: создать объект и вызвать конструктор в его контексте
-}" data-language="js"><span class="token-keyword">function</span> myNew<span class="token-operator">(</span>ctor<span class="token-operator">,</span> <span class="token-operator">.</span><span class="token-operator">.</span><span class="token-operator">.</span>args<span class="token-operator">)</span> <span class="token-operator">{</span>
-        <span class="token-comment">// TODO: создать объект и вызвать конструктор в его контексте</span>
-<span class="token-operator">}</span></code></pre></div><div class="answer-section"><div class="answer-panel" hidden=""><button type="button" class="answer-panel__close" aria-label="Скрыть ответ">×</button><h4 class="answer-panel__heading">Реализовать собственный new.</h4><p>Шаги такие: создать новый объект, связать его с прототипом конструктора, вызвать конструктор с этим объектом как `this` и вернуть либо явный объект, либо созданный экземпляр.</p><p>Это хороший способ показать, что ты понимаешь, что делает `new` под капотом.</p></div><button type="button" class="answer-toggle" aria-expanded="false">Ответ</button></div></div></article><article class="practice-item"><button type="button" class="practice-item__toggle" aria-expanded="false">
-            <span class="practice-item__index">9.</span>
-            <span class="practice-item__title" data-base-text="Реализовать ограничение одновременно выполняющихся Promise.">Реализовать ограничение одновременно выполняющихся Promise.</span>
-            <span class="practice-item__chevron" aria-hidden="true"></span>
-        </button><div class="practice-item__body"><p class="question-note" data-base-text="Запускай не больше N задач одновременно и подхватывай следующую, когда одна завершится.">Запускай не больше N задач одновременно и подхватывай следующую, когда одна завершится.</p><div class="code-shell"><button type="button" class="copy-btn" aria-label="Скопировать код">
+    // TODO: создать объект и вызвать конструктор в его контексте
+}" data-language="js">function myNew(ctor, ...args) {
+    // TODO: создать объект и вызвать конструктор в его контексте
+}</code></pre></div><div class="answer-section"><div class="answer-panel" hidden=""><button type="button" class="answer-panel__close" aria-label="Скрыть ответ">×</button><h4 class="answer-panel__heading">Реализовать собственный new.</h4><h5 class="answer-panel__subheading">Решение</h5><div class="code-shell"><button type="button" class="copy-btn" aria-label="Скопировать код">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M8 4.75A2.75 2.75 0 0 1 10.75 2h6.5A2.75 2.75 0 0 1 20 4.75v9.5A2.75 2.75 0 0 1 17.25 17h-6.5A2.75 2.75 0 0 1 8 14.25v-9.5Zm2.75-1.25a1.25 1.25 0 0 0-1.25 1.25v9.5c0 .69.56 1.25 1.25 1.25h6.5c.69 0 1.25-.56 1.25-1.25v-9.5c0-.69-.56-1.25-1.25-1.25h-6.5Z"></path>
+            <path d="M6.75 6A2.75 2.75 0 0 0 4 8.75v8.5A2.75 2.75 0 0 0 6.75 20h8.5A2.75 2.75 0 0 0 18 17.25V16h-1.5v1.25c0 .69-.56 1.25-1.25 1.25h-8.5c-.69 0-1.25-.56-1.25-1.25v-8.5c0-.69.56-1.25 1.25-1.25H7V6h-.25Z"></path>
+        </svg>
+    </button><pre class="code-block"><code data-raw="function myNew(ctor, ...args) {
+    const instance = Object.create(ctor.prototype);
+    const result = ctor.apply(instance, args);
+
+    if (result !== null &amp;&amp; (typeof result === &quot;object&quot; || typeof result === &quot;function&quot;)) {
+        return result;
+    }
+
+    return instance;
+}" data-language="js">function myNew(ctor, ...args) {
+    const instance = Object.create(ctor.prototype);
+    const result = ctor.apply(instance, args);
+
+    if (result !== null &amp;&amp; (typeof result === &quot;object&quot; || typeof result === &quot;function&quot;)) {
+        return result;
+    }
+
+    return instance;
+}</code></pre></div><h5 class="answer-panel__subheading">Пояснение</h5><p>Сначала создаётся объект с нужным прототипом, затем конструктор вызывается с этим объектом как <code>this</code>. Если конструктор явно вернул объект или функцию, нужно вернуть его, иначе возвращается созданный экземпляр.</p></div><button type="button" class="answer-toggle" aria-expanded="false">Ответ</button></div></div></article><article class="practice-item"><button type="button" class="practice-item__toggle" aria-expanded="false"><span class="practice-item__index">9.</span><span class="practice-item__title" data-base-text="Реализовать ограничение одновременно выполняющихся Promise.">Реализовать ограничение одновременно выполняющихся Promise.</span><span class="practice-item__chevron" aria-hidden="true"></span></button><div class="practice-item__body"><p class="question-note" data-base-text="Запускай не больше N задач одновременно и подхватывай следующую, когда одна завершится.">Запускай не больше N задач одновременно и подхватывай следующую, когда одна завершится.</p><div class="code-shell"><button type="button" class="copy-btn" aria-label="Скопировать код">
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
             <path d="M8 4.75A2.75 2.75 0 0 1 10.75 2h6.5A2.75 2.75 0 0 1 20 4.75v9.5A2.75 2.75 0 0 1 17.25 17h-6.5A2.75 2.75 0 0 1 8 14.25v-9.5Zm2.75-1.25a1.25 1.25 0 0 0-1.25 1.25v9.5c0 .69.56 1.25 1.25 1.25h6.5c.69 0 1.25-.56 1.25-1.25v-9.5c0-.69-.56-1.25-1.25-1.25h-6.5Z"></path>
             <path d="M6.75 6A2.75 2.75 0 0 0 4 8.75v8.5A2.75 2.75 0 0 0 6.75 20h8.5A2.75 2.75 0 0 0 18 17.25V16h-1.5v1.25c0 .69-.56 1.25-1.25 1.25h-8.5c-.69 0-1.25-.56-1.25-1.25v-8.5c0-.69.56-1.25 1.25-1.25H7V6h-.25Z"></path>
         </svg>
     </button><pre class="code-block"><code data-raw="async function runWithLimit(tasks, limit) {
-        // TODO: держать одновременно не больше limit задач
-}" data-language="js"><span class="token-keyword">async</span> <span class="token-keyword">function</span> runWithLimit<span class="token-operator">(</span>tasks<span class="token-operator">,</span> limit<span class="token-operator">)</span> <span class="token-operator">{</span>
-        <span class="token-comment">// TODO: держать одновременно не больше limit задач</span>
-<span class="token-operator">}</span></code></pre></div><div class="answer-section"><div class="answer-panel" hidden=""><button type="button" class="answer-panel__close" aria-label="Скрыть ответ">×</button><h4 class="answer-panel__heading">Реализовать ограничение одновременно выполняющихся Promise.</h4><p>Здесь нужна очередь и счётчик активных задач: стартуем первые `limit`, а как только одна завершается, запускаем следующую.</p><p>Такой подход держит число параллельных задач под контролем и не перегружает среду.</p></div><button type="button" class="answer-toggle" aria-expanded="false">Ответ</button></div></div></article><article class="practice-item"><button type="button" class="practice-item__toggle" aria-expanded="false">
-            <span class="practice-item__index">10.</span>
-            <span class="practice-item__title" data-base-text="Реализовать последовательное выполнение Promise.">Реализовать последовательное выполнение Promise.</span>
-            <span class="practice-item__chevron" aria-hidden="true"></span>
-        </button><div class="practice-item__body"><p class="question-note" data-base-text="Нужно запускать задачи строго по одной, ожидая завершения каждой перед следующей.">Нужно запускать задачи строго по одной, ожидая завершения каждой перед следующей.</p><div class="code-shell"><button type="button" class="copy-btn" aria-label="Скопировать код">
+    // TODO: держать одновременно не больше limit задач
+}" data-language="js">async function runWithLimit(tasks, limit) {
+    // TODO: держать одновременно не больше limit задач
+}</code></pre></div><div class="answer-section"><div class="answer-panel" hidden=""><button type="button" class="answer-panel__close" aria-label="Скрыть ответ">×</button><h4 class="answer-panel__heading">Реализовать ограничение одновременно выполняющихся Promise.</h4><h5 class="answer-panel__subheading">Решение</h5><div class="code-shell"><button type="button" class="copy-btn" aria-label="Скопировать код">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M8 4.75A2.75 2.75 0 0 1 10.75 2h6.5A2.75 2.75 0 0 1 20 4.75v9.5A2.75 2.75 0 0 1 17.25 17h-6.5A2.75 2.75 0 0 1 8 14.25v-9.5Zm2.75-1.25a1.25 1.25 0 0 0-1.25 1.25v9.5c0 .69.56 1.25 1.25 1.25h6.5c.69 0 1.25-.56 1.25-1.25v-9.5c0-.69-.56-1.25-1.25-1.25h-6.5Z"></path>
+            <path d="M6.75 6A2.75 2.75 0 0 0 4 8.75v8.5A2.75 2.75 0 0 0 6.75 20h8.5A2.75 2.75 0 0 0 18 17.25V16h-1.5v1.25c0 .69-.56 1.25-1.25 1.25h-8.5c-.69 0-1.25-.56-1.25-1.25v-8.5c0-.69.56-1.25 1.25-1.25H7V6h-.25Z"></path>
+        </svg>
+    </button><pre class="code-block"><code data-raw="async function runWithLimit(tasks, limit) {
+    const results = [];
+    let nextIndex = 0;
+
+    async function worker() {
+        while (nextIndex &lt; tasks.length) {
+            const currentIndex = nextIndex;
+            nextIndex += 1;
+
+            results[currentIndex] = await tasks[currentIndex]();
+        }
+    }
+
+    const workers = Array.from(
+        { length: Math.min(limit, tasks.length) },
+        () =&gt; worker(),
+    );
+
+    await Promise.all(workers);
+    return results;
+}" data-language="js">async function runWithLimit(tasks, limit) {
+    const results = [];
+    let nextIndex = 0;
+
+    async function worker() {
+        while (nextIndex &lt; tasks.length) {
+            const currentIndex = nextIndex;
+            nextIndex += 1;
+
+            results[currentIndex] = await tasks[currentIndex]();
+        }
+    }
+
+    const workers = Array.from(
+        { length: Math.min(limit, tasks.length) },
+        () =&gt; worker(),
+    );
+
+    await Promise.all(workers);
+    return results;
+}</code></pre></div><h5 class="answer-panel__subheading">Пояснение</h5><p>Создаётся несколько воркеров, но не больше <code>limit</code>. Каждый воркер берёт следующую задачу по общему индексу и сохраняет результат на исходную позицию, поэтому порядок результата сохраняется.</p></div><button type="button" class="answer-toggle" aria-expanded="false">Ответ</button></div></div></article><article class="practice-item"><button type="button" class="practice-item__toggle" aria-expanded="false"><span class="practice-item__index">10.</span><span class="practice-item__title" data-base-text="Реализовать последовательное выполнение Promise.">Реализовать последовательное выполнение Promise.</span><span class="practice-item__chevron" aria-hidden="true"></span></button><div class="practice-item__body"><p class="question-note" data-base-text="Нужно запускать задачи строго по одной, ожидая завершения каждой перед следующей.">Нужно запускать задачи строго по одной, ожидая завершения каждой перед следующей.</p><div class="code-shell"><button type="button" class="copy-btn" aria-label="Скопировать код">
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
             <path d="M8 4.75A2.75 2.75 0 0 1 10.75 2h6.5A2.75 2.75 0 0 1 20 4.75v9.5A2.75 2.75 0 0 1 17.25 17h-6.5A2.75 2.75 0 0 1 8 14.25v-9.5Zm2.75-1.25a1.25 1.25 0 0 0-1.25 1.25v9.5c0 .69.56 1.25 1.25 1.25h6.5c.69 0 1.25-.56 1.25-1.25v-9.5c0-.69-.56-1.25-1.25-1.25h-6.5Z"></path>
             <path d="M6.75 6A2.75 2.75 0 0 0 4 8.75v8.5A2.75 2.75 0 0 0 6.75 20h8.5A2.75 2.75 0 0 0 18 17.25V16h-1.5v1.25c0 .69-.56 1.25-1.25 1.25h-8.5c-.69 0-1.25-.56-1.25-1.25v-8.5c0-.69.56-1.25 1.25-1.25H7V6h-.25Z"></path>
         </svg>
     </button><pre class="code-block"><code data-raw="async function runSequentially(tasks) {
-        // TODO: выполнить задачи по очереди через await
-}" data-language="js"><span class="token-keyword">async</span> <span class="token-keyword">function</span> runSequentially<span class="token-operator">(</span>tasks<span class="token-operator">)</span> <span class="token-operator">{</span>
-        <span class="token-comment">// TODO: выполнить задачи по очереди через await</span>
-<span class="token-operator">}</span></code></pre></div><div class="answer-section"><div class="answer-panel" hidden=""><button type="button" class="answer-panel__close" aria-label="Скрыть ответ">×</button><h4 class="answer-panel__heading">Реализовать последовательное выполнение Promise.</h4><p>Задачи надо запускать по очереди, дожидаясь завершения каждой перед стартом следующей.</p><p>Проще всего это сделать через обычный цикл `for...of` с `await` или через последовательную цепочку Promise.</p></div><button type="button" class="answer-toggle" aria-expanded="false">Ответ</button></div></div></article></div>
+    // TODO: выполнить задачи по очереди через await
+}" data-language="js">async function runSequentially(tasks) {
+    // TODO: выполнить задачи по очереди через await
+}</code></pre></div><div class="answer-section"><div class="answer-panel" hidden=""><button type="button" class="answer-panel__close" aria-label="Скрыть ответ">×</button><h4 class="answer-panel__heading">Реализовать последовательное выполнение Promise.</h4><h5 class="answer-panel__subheading">Решение</h5><div class="code-shell"><button type="button" class="copy-btn" aria-label="Скопировать код">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M8 4.75A2.75 2.75 0 0 1 10.75 2h6.5A2.75 2.75 0 0 1 20 4.75v9.5A2.75 2.75 0 0 1 17.25 17h-6.5A2.75 2.75 0 0 1 8 14.25v-9.5Zm2.75-1.25a1.25 1.25 0 0 0-1.25 1.25v9.5c0 .69.56 1.25 1.25 1.25h6.5c.69 0 1.25-.56 1.25-1.25v-9.5c0-.69-.56-1.25-1.25-1.25h-6.5Z"></path>
+            <path d="M6.75 6A2.75 2.75 0 0 0 4 8.75v8.5A2.75 2.75 0 0 0 6.75 20h8.5A2.75 2.75 0 0 0 18 17.25V16h-1.5v1.25c0 .69-.56 1.25-1.25 1.25h-8.5c-.69 0-1.25-.56-1.25-1.25v-8.5c0-.69.56-1.25 1.25-1.25H7V6h-.25Z"></path>
+        </svg>
+    </button><pre class="code-block"><code data-raw="async function runSequentially(tasks) {
+    const results = [];
+
+    for (const task of tasks) {
+        results.push(await task());
+    }
+
+    return results;
+}" data-language="js">async function runSequentially(tasks) {
+    const results = [];
+
+    for (const task of tasks) {
+        results.push(await task());
+    }
+
+    return results;
+}</code></pre></div><h5 class="answer-panel__subheading">Пояснение</h5><p>Обычный цикл с <code>await</code> запускает следующую задачу только после завершения предыдущей. Это проще и читаемее, чем вручную собирать цепочку через <code>then</code>.</p></div><button type="button" class="answer-toggle" aria-expanded="false">Ответ</button></div></div></article></div>
             </section>
         </div>
     
